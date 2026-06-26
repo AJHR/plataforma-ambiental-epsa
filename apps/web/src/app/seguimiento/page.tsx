@@ -168,9 +168,9 @@ export default function SeguimientoPage() {
     setLoadingSeries(true);
     const controller = new AbortController();
     fetch(`/api/monitoring/${activeTab}/series`, { signal: controller.signal })
-      .then((r) => r.ok ? r.json() as Promise<{ data: DataPoint[] }> : Promise.reject())
+      .then((r) => r.ok ? r.json() as Promise<{ data: { points: DataPoint[] } }> : Promise.reject())
       .then((json) => {
-        setSeries((prev) => ({ ...prev, [activeTab]: json.data }));
+        setSeries((prev) => ({ ...prev, [activeTab]: json.data?.points ?? [] }));
       })
       .catch(() => {
         setSeries((prev) => ({
