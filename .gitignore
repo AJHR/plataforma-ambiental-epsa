@@ -2,11 +2,14 @@
 node_modules/
 
 # Next.js
-.next/
-out/
+apps/web/.next/
+apps/web/out/
 
-# Build
-dist/
+# API build
+apps/api/dist/
+
+# Turbo
+.turbo/
 
 # Env
 .env
@@ -26,4 +29,4 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
+apps/web/next-env.d.ts
