@@ -400,7 +400,6 @@ export default function DocumentosPage() {
             {/* Preview */}
             <div
               style={{ flex: 1, overflow: "auto", minHeight: 0 }}
-              data-testid="pdf-preview"
             >
               <PdfPreview documentId={previewDoc.id} />
             </div>
