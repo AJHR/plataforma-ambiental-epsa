@@ -330,11 +330,6 @@ export default function AdminDashboardPage() {
                     fontSize: "0.875rem",
                     fontWeight: activeSection === item.key ? 700 : 400,
                     cursor: "pointer",
-                    border: "none",
-                    borderLeft:
-                      activeSection === item.key
-                        ? "3px solid var(--color-accent)"
-                        : "3px solid transparent",
                     transition: "background 0.12s, color 0.12s",
                   }}
                 >

@@ -39,6 +39,67 @@ const secondaryLinks = [
 export default function HomePage() {
   return (
     <>
+      <style>{`
+        .module-card {
+          display: flex;
+          flex-direction: column;
+          background: var(--color-surface);
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-line);
+          box-shadow: var(--shadow-card);
+          padding: 32px 28px;
+          color: var(--color-ink);
+          text-decoration: none;
+          transition: box-shadow 0.18s, transform 0.18s;
+        }
+        .module-card:hover {
+          box-shadow: 0 6px 24px rgba(0,59,92,0.14);
+          transform: translateY(-2px);
+        }
+        .secondary-link {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 16px 28px;
+          border-radius: var(--radius-sm);
+          border: 1px solid var(--color-line);
+          background: var(--color-bg);
+          color: var(--color-primary);
+          font-weight: 600;
+          font-size: 0.9375rem;
+          min-width: 220px;
+          justify-content: center;
+          transition: background 0.15s, border-color 0.15s;
+        }
+        .secondary-link:hover {
+          background: var(--color-surface);
+          border-color: var(--color-primary);
+        }
+        .hero-cta-primary {
+          background: var(--color-accent);
+          color: var(--color-bg-deep);
+          padding: 14px 28px;
+          border-radius: var(--radius-sm);
+          font-weight: 700;
+          font-size: 0.9375rem;
+          display: inline-block;
+          transition: opacity 0.15s;
+        }
+        .hero-cta-primary:hover { opacity: 0.9; }
+        .hero-cta-secondary {
+          background: rgba(255,255,255,0.12);
+          color: #ffffff;
+          border: 1px solid rgba(255,255,255,0.35);
+          padding: 14px 28px;
+          border-radius: var(--radius-sm);
+          font-weight: 600;
+          font-size: 0.9375rem;
+          display: inline-block;
+          transition: background 0.15s;
+        }
+        .hero-cta-secondary:hover { background: rgba(255,255,255,0.2); }
+      `}</style>
+
       {/* Hero */}
       <section
         style={{
@@ -89,31 +150,14 @@ export default function HomePage() {
             <Link
               href="/seguimiento"
               role="link"
-              style={{
-                background: "var(--color-accent)",
-                color: "var(--color-bg-deep)",
-                padding: "14px 28px",
-                borderRadius: "var(--radius-sm)",
-                fontWeight: 700,
-                fontSize: "0.9375rem",
-                display: "inline-block",
-              }}
+              className="hero-cta-primary"
             >
               Ver seguimiento ambiental
             </Link>
             <Link
               href="/el-proyecto"
               role="link"
-              style={{
-                background: "rgba(255,255,255,0.12)",
-                color: "#ffffff",
-                border: "1px solid rgba(255,255,255,0.35)",
-                padding: "14px 28px",
-                borderRadius: "var(--radius-sm)",
-                fontWeight: 600,
-                fontSize: "0.9375rem",
-                display: "inline-block",
-              }}
+              className="hero-cta-secondary"
             >
               Conocer el proyecto
             </Link>
@@ -164,28 +208,7 @@ export default function HomePage() {
               href={mod.href}
               role="link"
               aria-label={mod.title}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                background: "var(--color-surface)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--color-line)",
-                boxShadow: "var(--shadow-card)",
-                padding: "32px 28px",
-                color: "var(--color-ink)",
-                textDecoration: "none",
-                transition: "box-shadow 0.18s, transform 0.18s",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.boxShadow = "0 6px 24px rgba(0,59,92,0.14)";
-                el.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.boxShadow = "var(--shadow-card)";
-                el.style.transform = "translateY(0)";
-              }}
+              className="module-card"
             >
               <span
                 aria-hidden="true"
@@ -253,20 +276,7 @@ export default function HomePage() {
               href={link.href}
               role="link"
               aria-label={link.label}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                padding: "16px 28px",
-                borderRadius: "var(--radius-sm)",
-                border: "1px solid var(--color-line)",
-                background: "var(--color-bg)",
-                color: "var(--color-primary)",
-                fontWeight: 600,
-                fontSize: "0.9375rem",
-                minWidth: "220px",
-                justifyContent: "center",
-              }}
+              className="secondary-link"
             >
               <span aria-hidden="true" style={{ fontSize: "1.375rem" }}>
                 {link.emoji}
