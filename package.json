@@ -8,7 +8,9 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "test": "turbo test"
+    "test": "turbo test",
+    "e2e": "echo \"[e2e] Playwright pendiente (WS10). Sin pruebas E2E aún.\" && exit 0",
+    "a11y": "echo \"[a11y] axe-core pendiente (WS10). Sin auditoría a11y aún.\" && exit 0"
   },
   "devDependencies": {
     "turbo": "latest"

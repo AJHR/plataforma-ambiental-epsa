@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   push:
-    branches: [main]
+    branches: [main, develop]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   ci:
-    name: Lint, Typecheck, Test & Build
+    name: Lint, Typecheck, Test, Build, E2E & A11y
     runs-on: ubuntu-latest
 
     steps:
@@ -42,3 +42,10 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      # Pendientes de implementación real en WS10 (hoy no-op, no rompen CI).
+      - name: E2E (Playwright)
+        run: pnpm e2e
+
+      - name: A11y (axe-core)
+        run: pnpm a11y

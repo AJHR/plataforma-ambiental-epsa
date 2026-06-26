@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init *)",
+      "Bash(gh repo *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(pnpm --version)",
+      "Bash(pnpm add *)",
+      "Bash(mkdir -p \"/Users/alexanderhazbun/Documents/Aplicaciones Inventures/plataforma_ambiental_epsa/apps/web/src/app\")",
+      "Bash(mv src/app/layout.tsx apps/web/src/app/)",
+      "Bash(mv src/app/page.tsx apps/web/src/app/)",
+      "Bash(mv next.config.ts apps/web/)",
+      "Bash(mv vitest.config.ts apps/web/)",
+      "Bash(rm -rf node_modules pnpm-lock.yaml)",
+      "Bash(pnpm install *)",
+      "Bash(claude mcp *)"
+    ]
+  }
+}

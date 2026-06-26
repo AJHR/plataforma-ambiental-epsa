@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Edit", "Write", "Read", "Glob", "Grep",
+      "Bash(pnpm:*)", "Bash(pnpm install)", "Bash(pnpm install --frozen-lockfile)",
+      "Bash(pnpm -w *)", "Bash(pnpm -r *)",
+      "Bash(npx:*)", "Bash(node:*)", "Bash(turbo:*)", "Bash(tsx:*)",
+      "Bash(vitest:*)", "Bash(playwright:*)",
+      "Bash(git add:*)", "Bash(git commit:*)", "Bash(git checkout:*)",
+      "Bash(git switch:*)", "Bash(git push:*)", "Bash(git pull:*)",
+      "Bash(git fetch:*)", "Bash(git merge:*)", "Bash(git rebase:*)",
+      "Bash(git status)", "Bash(git branch:*)", "Bash(git log:*)",
+      "Bash(gh pr:*)", "Bash(gh issue:*)", "Bash(gh run:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)", "Bash(git push --force*)", "Bash(git push -f*)",
+      "Read(./.env)", "Read(./.env.*)", "Read(./**/*.pem)",
+      "Write(./.env)", "Write(./.env.*)"
+    ]
+  }
+}

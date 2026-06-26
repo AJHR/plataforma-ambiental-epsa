@@ -30,3 +30,10 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 apps/web/next-env.d.ts
+
+# data/ runtime (no versionar datos escritos en producción; sí la estructura)
+data/**/*.json
+data/**/*.jsonl
+data/**/*.pdf
+!data/**/.gitkeep
+!data/README.md

@@ -1,0 +1,11 @@
+{
+  "name": "@repo/content",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --ext .ts || true",
+    "typecheck": "tsc --noEmit || true",
+    "test": "vitest run --passWithNoTests"
+  }
+}

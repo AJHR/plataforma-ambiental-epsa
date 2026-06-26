@@ -1,0 +1,38 @@
+/* Design tokens — Plataforma EPSA (ver docs/DESIGN_SYSTEM.md).
+   Valores hex PROVISORIOS inspirados en la identidad Puerto San Antonio.
+   Se confirman contra el Manual de Marca de EPSA en H0. Cambiar la marca = editar
+   este archivo; los componentes no se tocan. */
+:root {
+  /* Marca */
+  --color-primary: #003b5c;
+  --color-primary-600: #0b5c87;
+  --color-accent: #009fe3;
+  --color-accent-700: #0277b6;
+  --color-eco: #2e8b57;
+  --color-cta: #e8743b;
+
+  /* Semáforo ambiental (estilo SINCA) */
+  --sema-ok: #2e8b57;
+  --sema-warn: #e0a800;
+  --sema-bad: #c0392b;
+
+  /* Neutrales */
+  --color-ink: #1a2b3c;
+  --color-muted: #5b6b7b;
+  --color-line: #d9e1e8;
+  --color-surface: #ffffff;
+  --color-bg: #f5f8fa;
+  --color-bg-deep: #002a41;
+
+  /* Radios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Espaciado base 4px: usar múltiplos (4,8,12,16,24,32,48,64) */
+  --space-unit: 4px;
+
+  /* Sombra de tarjeta */
+  --shadow-card: 0 2px 8px rgba(0, 43, 65, 0.08);
+}
