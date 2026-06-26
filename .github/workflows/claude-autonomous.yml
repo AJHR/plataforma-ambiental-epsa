@@ -1,0 +1,68 @@
+# Corrida autónoma del MVP en la NUBE de GitHub (laptop cerrado).
+# Usa claude-code-action en modo automatización. Re-dispara por schedule durante el
+# fin de semana para "continuar" hasta cumplir docs/SUCCESS_CRITERIA.md.
+# Requisito: agregar el secret ANTHROPIC_API_KEY en Settings > Secrets and variables > Actions.
+# Nota: cada job de Actions tiene tope de tiempo (~6h); por eso el schedule lo reanuda.
+
+name: Claude Autónomo — MVP
+
+# Vía elegida = Nube 1 (Claude Code web). Este workflow queda como FALLBACK MANUAL.
+# El schedule está desactivado a propósito para no correr en paralelo ni gastar créditos.
+on:
+  workflow_dispatch: {}        # solo manual: Actions > Claude Autónomo > Run workflow
+
+concurrency:
+  group: claude-autonomous
+  cancel-in-progress: false     # no cortar una iteración en curso
+
+jobs:
+  build-mvp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: ¿Ya está completo? (corta si MVP_COMPLETE)
+        id: gate
+        run: |
+          if [ -f .mvp_status ] && grep -q "MVP_COMPLETE" .mvp_status; then
+            echo "done=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "done=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: pnpm/action-setup@v4
+        if: steps.gate.outputs.done == 'false'
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.done == 'false'
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install deps
+        if: steps.gate.outputs.done == 'false'
+        run: pnpm install
+      - name: Playwright browsers
+        if: steps.gate.outputs.done == 'false'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Claude continúa hacia el MVP
+        if: steps.gate.outputs.done == 'false'
+        # Verifica los nombres de inputs contra: code.claude.com/docs/en/github-actions
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Sigue KICKOFF_CLAUDE_CODE.md como orquestador, en esta rama (develop).
+            Avanza hacia el GOAL en incrementos verificables. Antes de terminar este turno:
+            corre `pnpm lint typecheck test build` y `pnpm e2e`, arregla lo que falle,
+            y haz commit + push a develop.
+            Cuando TODOS los criterios de docs/SUCCESS_CRITERIA.md pasen y `pnpm e2e` esté
+            100% verde, escribe `MVP_COMPLETE` en .mvp_status, commitea, y abre el PR develop->main.
+            Si no, deja todo commiteado y resume el estado en PROGRESS.md.
+          claude_args: "--dangerously-skip-permissions --max-turns 300"

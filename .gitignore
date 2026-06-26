@@ -37,3 +37,10 @@ data/**/*.jsonl
 data/**/*.pdf
 !data/**/.gitkeep
 !data/README.md
+
+# Autonomous run / Playwright
+logs/
+!logs/.gitkeep
+.mvp_status
+playwright-report/
+test-results/

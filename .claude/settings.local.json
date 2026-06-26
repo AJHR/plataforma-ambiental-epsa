@@ -15,7 +15,9 @@
       "Bash(mv vitest.config.ts apps/web/)",
       "Bash(rm -rf node_modules pnpm-lock.yaml)",
       "Bash(pnpm install *)",
-      "Bash(claude mcp *)"
+      "Bash(claude mcp *)",
+      "Bash(cd \"/Users/alexanderhazbun/Documents/Aplicaciones Inventures/plataforma_ambiental_epsa\" && rm -f .git/index.lock && git add -A && git commit -m \"chore: kit autónomo + auto-merge\" && git push -u origin develop)",
+      "Bash(cd \"/Users/alexanderhazbun/Documents/Aplicaciones Inventures/plataforma_ambiental_epsa\" && rm -f .git/index.lock .git/HEAD.lock && git add -A && git commit -m \"chore: kit autónomo + auto-merge\" && git push -u origin develop)"
     ]
   }
 }
