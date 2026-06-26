@@ -152,14 +152,14 @@ export default function HomePage() {
               role="link"
               className="hero-cta-primary"
             >
-              Ver seguimiento ambiental
+              Explorar la plataforma
             </Link>
             <Link
               href="/el-proyecto"
               role="link"
               className="hero-cta-secondary"
             >
-              Conocer el proyecto
+              Conocer más
             </Link>
           </div>
         </div>

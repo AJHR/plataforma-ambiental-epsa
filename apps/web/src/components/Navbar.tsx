@@ -4,12 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { href: "/proyecto", label: "El Proyecto" },
-  { href: "/seguimiento", label: "Seguimiento" },
-  { href: "/participa", label: "Participa" },
-  { href: "/aprende", label: "Aprende" },
   { href: "/boletines", label: "Boletines" },
   { href: "/documentos", label: "Documentos" },
+  { href: "/admin", label: "Admin" },
 ] as const;
 
 export default function Navbar() {

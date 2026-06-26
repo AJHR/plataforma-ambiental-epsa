@@ -120,7 +120,7 @@ export default function ElProyectoPage() {
             borderBottom: "2px solid var(--color-line)",
           }}
         >
-          Descripción del Proyecto
+          Descripción General
         </h2>
         <div
           style={{
@@ -238,7 +238,7 @@ export default function ElProyectoPage() {
                 marginBottom: "10px",
               }}
             >
-              Datos del Proyecto
+              Ficha Técnica
             </h3>
             <dl style={{ fontSize: "0.9rem", color: "var(--color-muted)" }}>
               {[
@@ -352,7 +352,7 @@ export default function ElProyectoPage() {
             borderBottom: "2px solid var(--color-line)",
           }}
         >
-          Etapas del Proyecto
+          Etapas de Implementación
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           {phases.map((phase, idx) => (
