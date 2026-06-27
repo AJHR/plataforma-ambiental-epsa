@@ -15,10 +15,12 @@ test.describe("Home", () => {
   test("carga con un mensaje claro y accesos a los módulos", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/Puerto Exterior|EPSA/i);
-    await expect(page.getByRole("link", { name: /el proyecto/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /seguimiento/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /participa/i })).toBeVisible();
-    await expect(page.getByRole("link", { name: /aprende/i })).toBeVisible();
+    // Accesos directos presentes (la navbar y las tarjetas de la home pueden
+    // ofrecer el mismo acceso; basta con que el enlace exista y sea visible).
+    await expect(page.getByRole("link", { name: /el proyecto/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /seguimiento/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /participa/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /aprende/i }).first()).toBeVisible();
   });
 });
 

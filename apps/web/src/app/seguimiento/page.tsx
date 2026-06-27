@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import StatusBadge from "@/components/StatusBadge";
 import Chart from "@/components/Chart";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { Hero } from "@/components/ui";
+import { IMAGES } from "@/lib/images";
 
 interface MonitoringComponent {
   code: string;
@@ -186,45 +188,15 @@ export default function SeguimientoPage() {
   const currentSeries = series[activeTab] ?? [];
 
   return (
-    <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "48px 24px 64px" }}>
-      {/* Page header */}
-      <header style={{ marginBottom: "36px" }}>
-        <p
-          style={{
-            fontSize: "0.8125rem",
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: "var(--color-accent)",
-            marginBottom: "8px",
-          }}
-        >
-          Plataforma EPSA
-        </p>
-        <h1
-          style={{
-            fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-            fontWeight: 800,
-            color: "var(--color-primary)",
-            lineHeight: 1.2,
-            marginBottom: "12px",
-          }}
-        >
-          Seguimiento Ambiental
-        </h1>
-        <p
-          style={{
-            fontSize: "1rem",
-            color: "var(--color-muted)",
-            maxWidth: "620px",
-            lineHeight: 1.65,
-          }}
-        >
-          Estado actualizado de los 8 componentes ambientales monitoreados en la
-          Etapa I del proyecto Puerto Exterior San Antonio.
-        </p>
-      </header>
-
+    <>
+      <Hero
+        size="md"
+        image={IMAGES.seguimientoHeader}
+        eyebrow="Plataforma EPSA"
+        titleEmphasis="Seguimiento Ambiental"
+        subtitle="Estado actualizado de los 8 componentes ambientales monitoreados en la Etapa I del proyecto Puerto Exterior San Antonio."
+      />
+      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "48px 24px 64px" }}>
       {/* Tab bar */}
       <div
         style={{
@@ -418,6 +390,7 @@ export default function SeguimientoPage() {
           </div>
         ))
       )}
-    </div>
+      </div>
+    </>
   );
 }

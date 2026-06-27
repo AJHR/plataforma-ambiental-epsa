@@ -21,11 +21,24 @@ Reglas del proyecto para fotos e íconos. **Obligatorio** seguirlas en todo el e
 ### Registro de imágenes definitivas
 Por cada imagen definitiva que entre al producto, registrar aquí su origen y licencia:
 
-| Ubicación en la UI | URL de origen | Autor | Fuente | Licencia |
-| --- | --- | --- | --- | --- |
-| _(ejemplo)_ Hero landing | https://unsplash.com/photos/XXXX | — | Unsplash | Unsplash License |
+El catálogo vive en `apps/web/src/lib/images.ts` (mapa `key → { src, alt }`). Todas
+son fotos de naturaleza/paisaje **sin rostros**, servidas vía `images.unsplash.com`.
 
-> Mientras se usen placeholders de `picsum.photos` no es necesario registrarlos (son de desarrollo).
+| Clave (`images.ts`) | Uso en la UI | URL de origen | Fuente | Licencia |
+| --- | --- | --- | --- | --- |
+| `heroBosque` | Hero Home | https://unsplash.com/photos/photo-1441974231531-c6227db76b6e | Unsplash | Unsplash License |
+| `proyectoHero` | Hero El Proyecto | https://unsplash.com/photos/photo-1518837695005-2083093ee35b | Unsplash | Unsplash License |
+| `seguimientoHeader` | Hero Seguimiento | https://unsplash.com/photos/photo-1470115636492-6d2b56f9146d | Unsplash | Unsplash License |
+| `hojasRocio` | Bloque "Compromiso" (Home) | https://unsplash.com/photos/photo-1466692476868-aef1dfb1e735 | Unsplash | Unsplash License |
+| `vegetacion` | Bloque "Descripción" (Proyecto) | https://unsplash.com/photos/photo-1502082553048-f009c37129b9 | Unsplash | Unsplash License |
+| `modProyecto` | Tarjeta módulo El Proyecto | https://unsplash.com/photos/photo-1500382017468-9049fed747ef | Unsplash | Unsplash License |
+| `modSeguimiento` | Tarjeta módulo Seguimiento | https://unsplash.com/photos/photo-1468421870903-4df1664ac249 | Unsplash | Unsplash License |
+| `modParticipa` | Tarjeta módulo Participa | https://unsplash.com/photos/photo-1530836369250-ef72a3f5cda8 | Unsplash | Unsplash License |
+| `modAprende` | Tarjeta módulo Aprende | https://unsplash.com/photos/photo-1507413245164-6160d8298b31 | Unsplash | Unsplash License |
+| `costa` | Reserva (costa) | https://unsplash.com/photos/photo-1505142468610-359e7d316be0 | Unsplash | Unsplash License |
+
+> Para cambiar una imagen, edita solo `apps/web/src/lib/images.ts` (la UI no se toca)
+> y actualiza esta tabla.
 
 ## Íconos
 

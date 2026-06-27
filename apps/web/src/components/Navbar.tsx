@@ -3,11 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 
+// Accesos directos a las funciones principales de la plataforma.
 const navLinks = [
+  { href: "/el-proyecto", label: "El Proyecto" },
+  { href: "/seguimiento", label: "Seguimiento" },
+  { href: "/aprende", label: "Aprende" },
   { href: "/boletines", label: "Boletines" },
   { href: "/documentos", label: "Documentos" },
   { href: "/admin", label: "Admin" },
 ] as const;
+
+// CTA destacado: participar y hacer consultas (MIAQR).
+const cta = { href: "/participa", label: "Participa" } as const;
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -117,6 +124,23 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href={cta.href}
+              style={{
+                display: "block",
+                marginLeft: "8px",
+                padding: "8px 16px",
+                borderRadius: "var(--radius-sm)",
+                background: "var(--color-accent)",
+                color: "var(--color-accent-foreground)",
+                fontSize: "0.875rem",
+                fontWeight: 700,
+              }}
+            >
+              {cta.label}
+            </Link>
+          </li>
         </ul>
 
         {/* Hamburger button — visible on small screens */}
@@ -198,6 +222,25 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={cta.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "block",
+                  marginTop: "12px",
+                  textAlign: "center",
+                  padding: "12px 0",
+                  borderRadius: "var(--radius-sm)",
+                  background: "var(--color-accent)",
+                  color: "var(--color-accent-foreground)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 700,
+                }}
+              >
+                {cta.label}
+              </Link>
+            </li>
           </ul>
         </div>
       )}
