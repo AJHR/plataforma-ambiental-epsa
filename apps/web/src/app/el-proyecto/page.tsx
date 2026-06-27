@@ -93,7 +93,7 @@ export default function ElProyectoPage() {
 
       {/* Descripción — bloque editorial con foto */}
       <Section tone="default">
-        <MediaBlock image={IMAGES.vegetacion}>
+        <MediaBlock image={IMAGES.mar}>
           <SectionTitle
             eyebrow="Descripción general"
             lead="Monitorear para"

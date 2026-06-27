@@ -1,29 +1,29 @@
 /* Design tokens — Plataforma Ambiental EPSA (espejo legacy).
    FUENTE DE VERDAD: packages/config/theme.css (Tailwind v4 @theme).
    Este archivo se mantiene para imports CSS directos sin Tailwind; sus valores
-   DEBEN coincidir con theme.css. Sistema "natural-tech": verde bosque + tierra. */
+   DEBEN coincidir con theme.css. Sistema "marítimo-tech": azul puerto + azul claro. */
 :root {
-  /* Marca */
-  --color-primary: #1f4d3a;
-  --color-primary-600: #2a6349;
-  --color-accent: #7cb342;
-  --color-accent-700: #3f6b1e;
-  --color-accent-foreground: #14241b;
-  --color-eco: #2e8b57;
-  --color-cta: #bf6b3a;
+  /* Marca (azul portuario moderno) */
+  --color-primary: #0e5c8a;
+  --color-primary-600: #1577b0;
+  --color-accent: #38b6e8;
+  --color-accent-700: #0e6fa8;
+  --color-accent-foreground: #07293b;
+  --color-eco: #1597b8;
+  --color-cta: #e0742e;
 
   /* Semáforo ambiental (estilo SINCA) */
   --sema-ok: #2e8b57;
   --sema-warn: #b8860b;
   --sema-bad: #c0392b;
 
-  /* Neutrales cálidos / tierra */
-  --color-ink: #1c2b22;
-  --color-muted: #5e6b60;
-  --color-line: #dde3d8;
+  /* Neutrales fríos / marinos */
+  --color-ink: #122a38;
+  --color-muted: #5a6b78;
+  --color-line: #d6e2ea;
   --color-surface: #ffffff;
-  --color-bg: #f5f2ec;
-  --color-bg-deep: #14241b;
+  --color-bg: #f1f6f9;
+  --color-bg-deep: #082235;
 
   /* Radios */
   --radius-sm: 8px;

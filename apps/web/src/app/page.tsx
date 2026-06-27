@@ -51,7 +51,7 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <Hero
-        image={IMAGES.heroBosque}
+        image={IMAGES.heroMar}
         eyebrow="EPSA — Puerto Exterior San Antonio"
         titleLead="Información ambiental"
         titleEmphasis="clara y verificable"
@@ -102,7 +102,7 @@ export default function HomePage() {
 
       {/* Bloque editorial — compromiso */}
       <Section tone="default">
-        <MediaBlock image={IMAGES.hojasRocio}>
+        <MediaBlock image={IMAGES.aguaDetalle}>
           <SectionTitle
             eyebrow="Nuestro compromiso"
             lead="Transparencia que se puede"
