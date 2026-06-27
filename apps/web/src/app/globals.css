@@ -1,76 +1,43 @@
-/* Design tokens — Plataforma EPSA
-   Copied from packages/ui/src/tokens.css so Next.js can load them directly. */
-:root {
-  /* Marca */
-  --color-primary: #003b5c;
-  --color-primary-600: #0b5c87;
-  --color-accent: #009fe3;
-  --color-accent-700: #0277b6;
-  --color-eco: #2e8b57;
-  --color-cta: #e8743b;
+@import "tailwindcss";
+@import "@repo/config/theme.css";
 
-  /* Semáforo ambiental (estilo SINCA) */
-  --sema-ok: #2e8b57;
-  --sema-warn: #e0a800;
-  --sema-bad: #c0392b;
+/* ── Base ──────────────────────────────────────────────────────────────────
+   Tailwind v4 ya incluye su reset (preflight) en @layer base. NO duplicamos un
+   reset universal sin capa: las reglas sin capa ganan a las utilidades de
+   Tailwind (@layer utilities) y romperían clases como `mx-auto` o `px-*`.
+   Nuestros estilos base van dentro de @layer base para que las utilidades
+   siempre puedan sobreescribirlos.
+   Los design tokens viven en @repo/config/theme.css (fuente de verdad). */
 
-  /* Neutrales */
-  --color-ink: #1a2b3c;
-  --color-muted: #5b6b7b;
-  --color-line: #d9e1e8;
-  --color-surface: #ffffff;
-  --color-bg: #f5f8fa;
-  --color-bg-deep: #002a41;
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
 
-  /* Radios */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-full: 999px;
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
 
-  /* Espaciado base 4px: usar múltiplos (4,8,12,16,24,32,48,64) */
-  --space-unit: 4px;
+  /* Foco visible accesible (WCAG AA — navegable por teclado) */
+  :focus-visible {
+    outline: 3px solid var(--color-accent-700);
+    outline-offset: 2px;
+  }
 
-  /* Sombra de tarjeta */
-  --shadow-card: 0 2px 8px rgba(0, 43, 65, 0.08);
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-/* Base styles */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-ink);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6;
-  min-height: 100vh;
-}
-
-/* Accessible focus styles */
-:focus-visible {
-  outline: 3px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-img,
-svg {
-  display: block;
-  max-width: 100%;
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
 }

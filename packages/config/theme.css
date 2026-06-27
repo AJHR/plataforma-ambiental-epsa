@@ -1,0 +1,79 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Design tokens — Plataforma Ambiental EPSA
+   Fuente de verdad del sistema de diseño "natural-tech": verde bosque profundo
+   + neutros tierra/arena cálidos + acento savia.
+
+   Tailwind v4 (@theme) emite, para cada token:
+     1. utilidades  → bg-primary, text-ink, rounded-md, shadow-card, font-sans…
+     2. CSS vars    → var(--color-primary), var(--radius-md), …  (retro-compat
+        con los estilos inline existentes de las páginas actuales).
+
+   Cambiar la marca = editar SOLO este archivo; los componentes no se tocan.
+   Prohibido hex mágicos en componentes.
+
+   Contraste verificado WCAG AA (texto ≥ 4.5:1, UI ≥ 3:1):
+     - texto ink (#1C2B22) sobre surface/bg   → ~13:1
+     - texto muted (#5E6B60) sobre surface     → ~5.3:1
+     - blanco sobre primary (#1F4D3A)          → ~8.7:1
+     - ink sobre accent (#7CB342)              → ~6.5:1  (NO usar blanco)
+     - accent-700 (#3F6B1E) como texto/links   → ~4.8:1
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Marca ── */
+  --color-primary: #1f4d3a;        /* verde bosque profundo */
+  --color-primary-600: #2a6349;    /* hover / degradados */
+  --color-accent: #7cb342;         /* savia / lima (fondo → usar foreground oscuro) */
+  --color-accent-700: #3f6b1e;     /* acento como texto/links sobre claro (AA) */
+  --color-accent-foreground: #14241b; /* texto sobre fondos accent */
+  --color-eco: #2e8b57;            /* verde mar secundario */
+  --color-cta: #bf6b3a;            /* tierra/terracota — segundo acento cálido */
+
+  /* ── Semáforo ambiental (estilo SINCA) ── */
+  --color-sema-ok: #2e8b57;
+  --color-sema-warn: #b8860b;      /* oscurecido para AA sobre claro */
+  --color-sema-bad: #c0392b;
+
+  /* ── Neutrales cálidos / tierra ── */
+  --color-ink: #1c2b22;            /* texto principal (verde-grafito cálido) */
+  --color-muted: #5e6b60;          /* texto secundario */
+  --color-line: #dde3d8;           /* bordes / divisores */
+  --color-surface: #ffffff;        /* tarjetas */
+  --color-bg: #f5f2ec;             /* fondo de página (arena cálida) */
+  --color-bg-deep: #14241b;        /* footer / fin de degradado hero */
+
+  /* ── Tipografía ── */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Escala tipográfica (serena, jerárquica) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-5xl: 3.75rem;
+
+  /* ── Radios ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* ── Sombras sutiles ── */
+  --shadow-card: 0 2px 8px rgba(20, 36, 27, 0.08);
+  --shadow-lg: 0 12px 32px rgba(20, 36, 27, 0.12);
+}
+
+/* Alias retro-compatibles con los nombres de variable usados por las páginas
+   actuales (estilos inline). El re-skin se propaga sin tocar esas páginas. */
+:root {
+  --sema-ok: var(--color-sema-ok);
+  --sema-warn: var(--color-sema-warn);
+  --sema-bad: var(--color-sema-bad);
+  --space-unit: 4px;
+}
