@@ -1,0 +1,74 @@
+[
+  {
+    "code": "aire",
+    "label": "Calidad del Aire",
+    "status": "ok",
+    "phrase": "Los niveles de material particulado se encuentran dentro de la norma.",
+    "measuredBy": "Estación SINCA — EPSA Norte",
+    "lastMeasured": "2026-06-25",
+    "downloadUrl": "/documentos/aire-junio-2026.pdf"
+  },
+  {
+    "code": "hidrica",
+    "label": "Calidad Hídrica",
+    "status": "ok",
+    "phrase": "Parámetros fisicoquímicos dentro de rangos normales.",
+    "measuredBy": "Laboratorio EPSA — Zona Marina",
+    "lastMeasured": "2026-06-24",
+    "downloadUrl": "/documentos/hidrica-junio-2026.pdf"
+  },
+  {
+    "code": "fauna",
+    "label": "Fauna",
+    "status": "warn",
+    "phrase": "Se registró actividad inusual en aves migratorias. Seguimiento activo.",
+    "measuredBy": "Equipo de biodiversidad EPSA",
+    "lastMeasured": "2026-06-20",
+    "downloadUrl": "/documentos/fauna-junio-2026.pdf"
+  },
+  {
+    "code": "vegetacion",
+    "label": "Vegetación",
+    "status": "ok",
+    "phrase": "Cobertura vegetal estable, sin alteraciones significativas.",
+    "measuredBy": "Unidad de flora y vegetación EPSA",
+    "lastMeasured": "2026-06-18",
+    "downloadUrl": "/documentos/vegetacion-junio-2026.pdf"
+  },
+  {
+    "code": "ruido",
+    "label": "Ruido y Vibraciones",
+    "status": "warn",
+    "phrase": "Niveles de ruido diurno cerca del límite normativo durante jornadas de obra.",
+    "measuredBy": "Laboratorio acústico EPSA",
+    "lastMeasured": "2026-06-25",
+    "downloadUrl": "/documentos/ruido-junio-2026.pdf"
+  },
+  {
+    "code": "sedimentos",
+    "label": "Sedimentos",
+    "status": "ok",
+    "phrase": "Concentración de sedimentos en suspensión dentro de parámetros normales.",
+    "measuredBy": "Monitoreo marino EPSA",
+    "lastMeasured": "2026-06-22",
+    "downloadUrl": "/documentos/sedimentos-junio-2026.pdf"
+  },
+  {
+    "code": "paisaje",
+    "label": "Paisaje",
+    "status": "ok",
+    "phrase": "Índice de calidad paisajística sin variación relevante respecto a la línea de base.",
+    "measuredBy": "Equipo de evaluación visual EPSA",
+    "lastMeasured": "2026-06-15",
+    "downloadUrl": "/documentos/paisaje-junio-2026.pdf"
+  },
+  {
+    "code": "suelo",
+    "label": "Suelo",
+    "status": "ok",
+    "phrase": "No se detectan contaminantes sobre los límites reglamentarios.",
+    "measuredBy": "Laboratorio de suelos EPSA",
+    "lastMeasured": "2026-06-10",
+    "downloadUrl": "/documentos/suelo-junio-2026.pdf"
+  }
+]

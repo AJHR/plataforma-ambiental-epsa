@@ -1,0 +1,33 @@
+{
+  "key": "home",
+  "value": {
+    "title": "Plataforma Ambiental EPSA",
+    "subtitle": "Transparencia y participación ciudadana en el monitoreo ambiental de nuestro proyecto",
+    "description": "Bienvenido a la plataforma oficial de seguimiento ambiental de EPSA. Aquí podrás consultar en tiempo real los resultados del monitoreo ambiental, acceder a los informes de cumplimiento de la Resolución de Calificación Ambiental (RCA) y mantenerme informado sobre el desempeño ambiental del proyecto durante todas sus etapas.",
+    "highlights": [
+      {
+        "icon": "chart-bar",
+        "title": "Monitoreo en Tiempo Real",
+        "description": "Accede a los últimos datos de calidad del aire, agua, suelo y biodiversidad medidos en el área de influencia del proyecto."
+      },
+      {
+        "icon": "document-text",
+        "title": "Informes y Documentos",
+        "description": "Descarga informes periódicos, planes de manejo ambiental y documentación técnica del proyecto de forma abierta y gratuita."
+      },
+      {
+        "icon": "users",
+        "title": "Participa",
+        "description": "Envía consultas, reporta situaciones ambientales o suscríbete a nuestro boletín para mantenerte informado sobre novedades del proyecto."
+      }
+    ],
+    "contactEmail": "medioambiente@epsa.cl",
+    "contactPhone": "+56 2 2345 6789",
+    "projectName": "Proyecto EPSA Etapa I",
+    "rcaNumber": "RCA N°123/2023",
+    "rcaDate": "2023-08-15"
+  },
+  "status": "publicado",
+  "updatedAt": "2026-06-01T10:00:00.000Z",
+  "updatedBy": "admin@epsa.cl"
+}

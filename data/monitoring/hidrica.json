@@ -1,0 +1,77 @@
+{
+  "componentCode": "hidrica",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 7.47,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-04-17",
+      "value": 7.48,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-04-24",
+      "value": 5.96,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-05-01",
+      "value": 6.34,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-05-08",
+      "value": 7.76,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-05-15",
+      "value": 7.01,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-05-22",
+      "value": 5.78,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-05-29",
+      "value": 6.85,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-06-05",
+      "value": 8.21,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-06-12",
+      "value": 6.9,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-06-19",
+      "value": 6.28,
+      "unit": "pH",
+      "threshold": 8.5
+    },
+    {
+      "date": "2026-06-26",
+      "value": 7.76,
+      "unit": "pH",
+      "threshold": 8.5
+    }
+  ]
+}

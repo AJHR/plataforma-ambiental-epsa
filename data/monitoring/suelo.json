@@ -1,0 +1,65 @@
+{
+  "componentCode": "suelo",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 2.65,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-04-17",
+      "value": 3.29,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-04-24",
+      "value": 3.5,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-05-01",
+      "value": 2.81,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-05-08",
+      "value": 2.78,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-05-15",
+      "value": 3.47,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-05-22",
+      "value": 3.33,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-05-29",
+      "value": 2.67,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-06-05",
+      "value": 3.17,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-06-12",
+      "value": 3.75,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-06-19",
+      "value": 3.28,
+      "unit": "mg/kg"
+    },
+    {
+      "date": "2026-06-26",
+      "value": 2.83,
+      "unit": "mg/kg"
+    }
+  ]
+}
