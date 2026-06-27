@@ -53,30 +53,30 @@ export default function ParticipaPage() {
 
     setStatus("submitting");
     try {
-      const res = await fetch("/api/participacion", {
+      const res = await fetch("/api/cases", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           category: form.category,
           message: form.message,
+          consent: form.consent,
         }),
       });
 
-      if (!res.ok) throw new Error("Server error");
+      if (!res.ok) {
+        const json = (await res.json()) as { error?: string };
+        throw new Error(json.error ?? "Error al enviar la consulta");
+      }
 
       const json = (await res.json()) as { caseNumber?: string; data?: { caseNumber?: string } };
-      const caseNumber =
-        json.caseNumber ??
-        json.data?.caseNumber ??
-        `EPSA-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999) + 1).padStart(4, "0")}`;
+      const caseNumber = json.caseNumber ?? json.data?.caseNumber;
+      if (!caseNumber) throw new Error("No se recibió número de caso");
 
       setResult({ caseNumber });
       setStatus("success");
-    } catch {
-      // Fallback: generate client-side case number so the UX still works
-      const fallback = `EPSA-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999) + 1).padStart(4, "0")}`;
-      setResult({ caseNumber: fallback });
-      setStatus("success");
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
     }
   }
 
@@ -480,6 +480,24 @@ export default function ParticipaPage() {
                   </p>
                 )}
               </div>
+
+              {/* Server error */}
+              {status === "error" && (
+                <div
+                  role="alert"
+                  style={{
+                    padding: "12px 16px",
+                    background: "#fff0ef",
+                    border: "1px solid var(--sema-bad)",
+                    borderRadius: "var(--radius-sm)",
+                    fontSize: "0.875rem",
+                    color: "var(--sema-bad)",
+                    fontWeight: 500,
+                  }}
+                >
+                  No se pudo registrar su consulta. Verifique su conexión e intente nuevamente.
+                </div>
+              )}
 
               {/* Submit */}
               <div>
