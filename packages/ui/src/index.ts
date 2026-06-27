@@ -7,21 +7,22 @@ export const UI_PACKAGE = "@repo/ui";
 
 // Design token values (mirrors tokens.css) — útil en tests y en configuraciones de herramientas
 export const COLOR_TOKENS = {
-  primary: "#003b5c",
-  primary600: "#0b5c87",
-  accent: "#009fe3",
-  accent700: "#0277b6",
+  primary: "#1f4d3a",
+  primary600: "#2a6349",
+  accent: "#7cb342",
+  accent700: "#3f6b1e",
+  accentForeground: "#14241b",
   eco: "#2e8b57",
-  cta: "#e8743b",
+  cta: "#bf6b3a",
   semaOk: "#2e8b57",
-  semaWarn: "#e0a800",
+  semaWarn: "#b8860b",
   semaBad: "#c0392b",
-  ink: "#1a2b3c",
-  muted: "#5b6b7b",
-  line: "#d9e1e8",
+  ink: "#1c2b22",
+  muted: "#5e6b60",
+  line: "#dde3d8",
   surface: "#ffffff",
-  bg: "#f5f8fa",
-  bgDeep: "#002a41",
+  bg: "#f5f2ec",
+  bgDeep: "#14241b",
 } as const;
 
 export const RADIUS_TOKENS = {

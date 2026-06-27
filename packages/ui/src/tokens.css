@@ -1,28 +1,29 @@
-/* Design tokens — Plataforma EPSA (ver docs/DESIGN_SYSTEM.md).
-   Valores hex PROVISORIOS inspirados en la identidad Puerto San Antonio.
-   Se confirman contra el Manual de Marca de EPSA en H0. Cambiar la marca = editar
-   este archivo; los componentes no se tocan. */
+/* Design tokens — Plataforma Ambiental EPSA (espejo legacy).
+   FUENTE DE VERDAD: packages/config/theme.css (Tailwind v4 @theme).
+   Este archivo se mantiene para imports CSS directos sin Tailwind; sus valores
+   DEBEN coincidir con theme.css. Sistema "natural-tech": verde bosque + tierra. */
 :root {
   /* Marca */
-  --color-primary: #003b5c;
-  --color-primary-600: #0b5c87;
-  --color-accent: #009fe3;
-  --color-accent-700: #0277b6;
+  --color-primary: #1f4d3a;
+  --color-primary-600: #2a6349;
+  --color-accent: #7cb342;
+  --color-accent-700: #3f6b1e;
+  --color-accent-foreground: #14241b;
   --color-eco: #2e8b57;
-  --color-cta: #e8743b;
+  --color-cta: #bf6b3a;
 
   /* Semáforo ambiental (estilo SINCA) */
   --sema-ok: #2e8b57;
-  --sema-warn: #e0a800;
+  --sema-warn: #b8860b;
   --sema-bad: #c0392b;
 
-  /* Neutrales */
-  --color-ink: #1a2b3c;
-  --color-muted: #5b6b7b;
-  --color-line: #d9e1e8;
+  /* Neutrales cálidos / tierra */
+  --color-ink: #1c2b22;
+  --color-muted: #5e6b60;
+  --color-line: #dde3d8;
   --color-surface: #ffffff;
-  --color-bg: #f5f8fa;
-  --color-bg-deep: #002a41;
+  --color-bg: #f5f2ec;
+  --color-bg-deep: #14241b;
 
   /* Radios */
   --radius-sm: 8px;
@@ -34,5 +35,5 @@
   --space-unit: 4px;
 
   /* Sombra de tarjeta */
-  --shadow-card: 0 2px 8px rgba(0, 43, 65, 0.08);
+  --shadow-card: 0 2px 8px rgba(20, 36, 27, 0.08);
 }

@@ -1,5 +1,9 @@
 {
   "name": "@repo/config",
   "version": "0.1.0",
-  "private": true
+  "private": true,
+  "exports": {
+    "./theme.css": "./theme.css",
+    "./tsconfig.base.json": "./tsconfig.base.json"
+  }
 }
