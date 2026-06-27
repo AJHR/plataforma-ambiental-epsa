@@ -1,0 +1,65 @@
+{
+  "componentCode": "paisaje",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 7.91,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-04-17",
+      "value": 7.92,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-04-24",
+      "value": 6.31,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-05-01",
+      "value": 6.71,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-05-08",
+      "value": 8.22,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-05-15",
+      "value": 7.42,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-05-22",
+      "value": 6.12,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-05-29",
+      "value": 7.25,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-06-05",
+      "value": 8.69,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-06-12",
+      "value": 7.3,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-06-19",
+      "value": 6.65,
+      "unit": "ICP"
+    },
+    {
+      "date": "2026-06-26",
+      "value": 8.21,
+      "unit": "ICP"
+    }
+  ]
+}

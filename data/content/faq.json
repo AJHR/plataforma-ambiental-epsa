@@ -1,0 +1,30 @@
+{
+  "key": "faq",
+  "value": {
+    "items": [
+      {
+        "q": "¿Qué es la Resolución de Calificación Ambiental (RCA) y por qué es importante?",
+        "a": "La Resolución de Calificación Ambiental (RCA) es el acto administrativo emitido por el Servicio de Evaluación Ambiental (SEA) que aprueba o rechaza un proyecto sometido al Sistema de Evaluación de Impacto Ambiental (SEIA). En el caso del Proyecto EPSA, la RCA N°123/2023 establece las condiciones, compromisos y medidas de mitigación, compensación y seguimiento que la empresa debe cumplir durante todas las etapas del proyecto. Esta plataforma permite a la ciudadanía verificar el cumplimiento de dichos compromisos."
+      },
+      {
+        "q": "¿Con qué frecuencia se actualizan los datos de monitoreo ambiental?",
+        "a": "La frecuencia de actualización depende de cada componente ambiental monitoreado. Los parámetros de calidad del aire y ruido se actualizan mensualmente. La calidad hídrica, suelos y sedimentos se informan semestralmente. El monitoreo de fauna y vegetación se realiza estacionalmente (cuatro veces al año). Todos los datos publicados en esta plataforma corresponden a mediciones realizadas por laboratorios acreditados por el Instituto Nacional de Normalización (INN)."
+      },
+      {
+        "q": "¿Cómo puedo reportar una situación ambiental anómala relacionada con el proyecto?",
+        "a": "Puedes utilizar el formulario de 'Casos y Consultas' disponible en esta plataforma para reportar cualquier situación ambiental que consideres que podría estar relacionada con las actividades del proyecto. Tu reporte recibirá un número de seguimiento único (ej: CASO-2026-001) y el equipo ambiental de EPSA tendrá un plazo de 5 días hábiles para dar respuesta. También puedes comunicarte directamente al correo medioambiente@epsa.cl o al teléfono +56 2 2345 6789."
+      },
+      {
+        "q": "¿Dónde puedo descargar los informes de cumplimiento ambiental del proyecto?",
+        "a": "Todos los informes de cumplimiento, planes de manejo ambiental, informes de monitoreo periódico y otros documentos técnicos del proyecto están disponibles en la sección 'Documentos' de esta plataforma. Los documentos están organizados por categoría y fecha. Adicionalmente, los informes enviados al Servicio de Evaluación Ambiental (SEA) pueden consultarse directamente en el Expediente Electrónico del proyecto en www.sea.gob.cl."
+      },
+      {
+        "q": "¿Qué hago si observo un incidente ambiental de emergencia (derrame, incendio, emisiones)?",
+        "a": "En caso de un incidente ambiental de carácter urgente, comunícate inmediatamente con la línea de emergencia ambiental de EPSA: +56 9 8765 4321 (disponible 24/7). Simultáneamente, puedes notificar a las autoridades competentes: Superintendencia del Medio Ambiente (SMA) al 800 600 900, Conaf en caso de riesgo de incendio forestal, o Carabineros de Chile. Una vez controlada la emergencia, EPSA deberá presentar un informe al SEA dentro de las 24 horas siguientes al evento."
+      }
+    ]
+  },
+  "status": "publicado",
+  "updatedAt": "2026-05-20T09:00:00.000Z",
+  "updatedBy": "editor@epsa.cl"
+}

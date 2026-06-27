@@ -1,0 +1,77 @@
+{
+  "componentCode": "sedimentos",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 22.04,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-04-17",
+      "value": 21.26,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-04-24",
+      "value": 26.67,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-05-01",
+      "value": 26.06,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-05-08",
+      "value": 20.8,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-05-15",
+      "value": 22.77,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-05-22",
+      "value": 27.51,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-05-29",
+      "value": 24.33,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-06-05",
+      "value": 21.84,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-06-12",
+      "value": 26.04,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-06-19",
+      "value": 28.88,
+      "unit": "mg/L",
+      "threshold": 40
+    },
+    {
+      "date": "2026-06-26",
+      "value": 23.95,
+      "unit": "mg/L",
+      "threshold": 40
+    }
+  ]
+}

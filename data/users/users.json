@@ -1,0 +1,18 @@
+[
+  {
+    "email": "admin@epsa.cl",
+    "passwordHash": "admin123",
+    "role": "admin",
+    "name": "Administrador EPSA",
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "active": true
+  },
+  {
+    "email": "editor@epsa.cl",
+    "passwordHash": "editor123",
+    "role": "editor",
+    "name": "Editor Ambiental EPSA",
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "active": true
+  }
+]

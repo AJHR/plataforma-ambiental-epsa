@@ -1,0 +1,20 @@
+[
+  {
+    "id": "boletin-001",
+    "title": "Boletín Ambiental N°1 – Resultados Monitoreo Primer Trimestre 2026",
+    "publishedAt": "2026-04-10T12:00:00.000Z",
+    "summary": "Se presentan los resultados del monitoreo ambiental correspondiente al primer trimestre de 2026, abarcando calidad del aire, calidad hídrica y fauna. Los indicadores se mantienen dentro de los rangos normativos establecidos en la Resolución de Calificación Ambiental.",
+    "author": "Equipo Ambiental EPSA",
+    "tags": ["monitoreo", "calidad del aire", "primer trimestre", "RCA"],
+    "fileUrl": "/documentos/boletin-001-q1-2026.pdf"
+  },
+  {
+    "id": "boletin-002",
+    "title": "Boletín Ambiental N°2 – Campaña de Vegetación y Paisaje Etapa I",
+    "publishedAt": "2026-06-01T12:00:00.000Z",
+    "summary": "Resumen de la campaña estacional de vegetación y evaluación paisajística realizada durante otoño 2026. Se identificaron 47 especies vegetales en el área de influencia directa, con 3 especies bajo categoría de conservación. Se implementaron medidas de rescate y relocalización según protocolo aprobado.",
+    "author": "Departamento de Biodiversidad EPSA",
+    "tags": ["vegetación", "flora", "paisaje", "biodiversidad", "Etapa I"],
+    "fileUrl": "/documentos/boletin-002-vegetacion-otono-2026.pdf"
+  }
+]
