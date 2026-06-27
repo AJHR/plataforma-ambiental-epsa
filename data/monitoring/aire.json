@@ -1,0 +1,77 @@
+{
+  "componentCode": "aire",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 42.55,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-04-17",
+      "value": 44.04,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-04-24",
+      "value": 54.47,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-05-01",
+      "value": 50.3,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-05-08",
+      "value": 40.94,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-05-15",
+      "value": 47.52,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-05-22",
+      "value": 55.19,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-05-29",
+      "value": 46.63,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-06-05",
+      "value": 44.05,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-06-12",
+      "value": 54.01,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-06-19",
+      "value": 56.9,
+      "unit": "µg/m³",
+      "threshold": 75
+    },
+    {
+      "date": "2026-06-26",
+      "value": 46.19,
+      "unit": "µg/m³",
+      "threshold": 75
+    }
+  ]
+}

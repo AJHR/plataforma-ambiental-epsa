@@ -1,0 +1,65 @@
+{
+  "componentCode": "fauna",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 10.27,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-04-17",
+      "value": 12.73,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-04-24",
+      "value": 13.54,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-05-01",
+      "value": 10.87,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-05-08",
+      "value": 10.75,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-05-15",
+      "value": 13.45,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-05-22",
+      "value": 12.88,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-05-29",
+      "value": 10.33,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-06-05",
+      "value": 12.28,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-06-12",
+      "value": 14.51,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-06-19",
+      "value": 12.7,
+      "unit": "ind"
+    },
+    {
+      "date": "2026-06-26",
+      "value": 10.94,
+      "unit": "ind"
+    }
+  ]
+}

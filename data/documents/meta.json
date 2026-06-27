@@ -1,0 +1,41 @@
+[
+  {
+    "id": "doc-001",
+    "title": "Informe de Monitoreo Ambiental – Primer Semestre 2026",
+    "description": "Informe consolidado de los resultados del programa de seguimiento ambiental correspondiente al período enero–junio 2026. Incluye resultados de calidad del aire, calidad hídrica, ruido, fauna y vegetación. Elaborado conforme a los requisitos de la RCA N°123/2023.",
+    "fileName": "IMA-2026-S1-EPSA.pdf",
+    "sizeBytes": 4823401,
+    "version": "1.0",
+    "status": "publicado",
+    "createdAt": "2026-07-10T08:00:00.000Z",
+    "category": "Informe de Monitoreo",
+    "author": "Departamento de Medio Ambiente EPSA",
+    "rcaCommitment": "Compromisos 4.1 – 4.8"
+  },
+  {
+    "id": "doc-002",
+    "title": "Plan de Manejo de Fauna – Etapa I",
+    "description": "Documento que establece las medidas, protocolos y procedimientos para la gestión de la fauna silvestre durante la Etapa I del proyecto, incluyendo rescate y relocalización de especies, protocolo de hallazgo de fauna accidentada y lineamientos para el monitoreo de seguimiento.",
+    "fileName": "PMF-Etapa-I-EPSA-v2.pdf",
+    "sizeBytes": 2156788,
+    "version": "2.0",
+    "status": "publicado",
+    "createdAt": "2026-03-01T09:30:00.000Z",
+    "category": "Plan de Manejo",
+    "author": "Departamento de Biodiversidad EPSA",
+    "rcaCommitment": "Compromiso 5.3"
+  },
+  {
+    "id": "doc-003",
+    "title": "Declaración Jurada de Cumplimiento – Primer Trimestre 2026",
+    "description": "Declaración jurada presentada ante la Superintendencia del Medio Ambiente (SMA) en cumplimiento de la obligación de reporte trimestral de compromisos de la RCA N°123/2023. Certifica el cumplimiento de las 47 condiciones aplicables a la Etapa I del proyecto.",
+    "fileName": "DJCR-Q1-2026-EPSA.pdf",
+    "sizeBytes": 987654,
+    "version": "1.0",
+    "status": "publicado",
+    "createdAt": "2026-04-30T17:00:00.000Z",
+    "category": "Declaracion Jurada",
+    "author": "Gerencia de Asuntos Ambientales EPSA",
+    "rcaCommitment": "Todos los compromisos Etapa I"
+  }
+]

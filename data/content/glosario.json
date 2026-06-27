@@ -1,0 +1,42 @@
+{
+  "key": "glosario",
+  "value": {
+    "terms": [
+      {
+        "word": "RCA (Resolución de Calificación Ambiental)",
+        "definition": "Acto administrativo emitido por el Servicio de Evaluación Ambiental (SEA) que aprueba o rechaza un proyecto o actividad sometida al Sistema de Evaluación de Impacto Ambiental. Establece las condiciones y compromisos ambientales que el titular debe cumplir durante el desarrollo del proyecto."
+      },
+      {
+        "word": "MP10 / MP2.5",
+        "definition": "Material Particulado con diámetro aerodinámico igual o menor a 10 y 2.5 micrómetros, respectivamente. Son contaminantes atmosféricos regulados por normas de calidad del aire en Chile (DS 59/1998 para MP10 y DS 12/2011 para MP2.5). El MP2.5 es especialmente relevante por su capacidad de penetrar en los alvéolos pulmonares."
+      },
+      {
+        "word": "DBO5 (Demanda Bioquímica de Oxígeno)",
+        "definition": "Parámetro que mide la cantidad de oxígeno disuelto consumido por microorganismos para descomponer materia orgánica en el agua a 20°C durante 5 días. Es un indicador clave de la carga orgánica y el grado de contaminación de las aguas residuales y superficiales."
+      },
+      {
+        "word": "LAeq (Nivel de Presión Sonora Equivalente)",
+        "definition": "Nivel de ruido continuo equivalente, ponderado en frecuencia A, que en un período determinado contiene la misma energía sonora que el ruido fluctuante medido. Es el parámetro principal utilizado en Chile por el Decreto Supremo N°38/2011 del MMA para evaluar el cumplimiento de los límites de ruido."
+      },
+      {
+        "word": "SEIA (Sistema de Evaluación de Impacto Ambiental)",
+        "definition": "Instrumento de gestión ambiental establecido en la Ley N°19.300, cuyo objetivo es identificar, predecir y evaluar los impactos ambientales de proyectos y actividades antes de su ejecución. Los proyectos que ingresan al SEIA pueden hacerlo mediante una Declaración de Impacto Ambiental (DIA) o un Estudio de Impacto Ambiental (EIA)."
+      },
+      {
+        "word": "Área de Influencia Directa (AID)",
+        "definition": "Zona geográfica en la cual se manifiestan directamente los impactos generados por un proyecto o actividad. En el contexto del monitoreo ambiental, es el área prioritaria de seguimiento de los componentes establecidos en la RCA."
+      },
+      {
+        "word": "Índice de Shannon-Wiener",
+        "definition": "Índice de diversidad ecológica ampliamente utilizado en ecología para cuantificar la biodiversidad de una comunidad. Considera tanto la riqueza de especies (número de especies) como la equitatividad (distribución relativa de individuos entre especies). Valores más altos indican mayor diversidad."
+      },
+      {
+        "word": "SMA (Superintendencia del Medio Ambiente)",
+        "definition": "Organismo técnico y fiscalizador del Estado de Chile, encargado de ejecutar, organizar y coordinar el seguimiento y fiscalización de las Resoluciones de Calificación Ambiental, de las medidas de los Planes de Prevención y/o Descontaminación, del contenido de las Normas de Calidad Ambiental y de los Planes de Manejo."
+      }
+    ]
+  },
+  "status": "publicado",
+  "updatedAt": "2026-05-15T14:30:00.000Z",
+  "updatedBy": "editor@epsa.cl"
+}
