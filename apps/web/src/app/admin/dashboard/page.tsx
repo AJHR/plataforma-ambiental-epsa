@@ -125,7 +125,7 @@ export default function AdminDashboardPage() {
   async function loadCases() {
     setCasesLoading(true);
     try {
-      const res = await fetch("/api/admin/participacion", {
+      const res = await fetch("/api/cases", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (!res.ok) throw new Error();
@@ -142,7 +142,7 @@ export default function AdminDashboardPage() {
   async function loadDocuments() {
     setDocsLoading(true);
     try {
-      const res = await fetch("/api/admin/documents", {
+      const res = await fetch("/api/documents", {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       if (!res.ok) throw new Error();
@@ -209,7 +209,7 @@ export default function AdminDashboardPage() {
     if (!boletinSubject.trim() || !boletinBody.trim()) return;
     setBoletinStatus("sending");
     try {
-      const res = await fetch("/api/admin/boletines", {
+      const res = await fetch("/api/newsletter/bulletins", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
