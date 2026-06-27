@@ -55,7 +55,11 @@ test.describe("Flujo Admin — login y back-office", () => {
     await page.getByLabel(/contraseña|password/i).fill("incorrecta");
     await page.getByRole("button", { name: /ingresar/i }).click();
 
-    await expect(page.getByRole("alert")).toBeVisible();
+    // Mensaje de error de credenciales (apuntado por texto: el role=alert también
+    // lo usa el route-announcer oculto de Next, que rompería el modo estricto).
+    await expect(
+      page.getByText(/credenciales inválidas|incorrect|inválid/i)
+    ).toBeVisible();
     await expect(page).toHaveURL(/\/admin$/);
   });
 });
