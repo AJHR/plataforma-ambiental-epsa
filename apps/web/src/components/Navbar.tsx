@@ -16,6 +16,9 @@ const navLinks = [
 // CTA destacado: participar y hacer consultas (MIAQR).
 const cta = { href: "/participa", label: "Participa" } as const;
 
+// Enlace externo al sitio institucional de Puerto San Antonio.
+const PUERTO_URL = "https://www.puertosanantonio.com";
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -125,11 +128,35 @@ export default function Navbar() {
             </li>
           ))}
           <li>
+            <a
+              href={PUERTO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+                padding: "8px 12px",
+                borderRadius: "var(--radius-sm)",
+                border: "1px solid rgba(255,255,255,0.35)",
+                color: "rgba(255,255,255,0.9)",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+              }}
+            >
+              Puerto San Antonio
+              <span aria-hidden="true">↗</span>
+              <span style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
+                (se abre en una pestaña nueva)
+              </span>
+            </a>
+          </li>
+          <li>
             <Link
               href={cta.href}
               style={{
                 display: "block",
-                marginLeft: "8px",
+                marginLeft: "4px",
                 padding: "8px 16px",
                 borderRadius: "var(--radius-sm)",
                 background: "var(--color-accent)",
@@ -222,6 +249,27 @@ export default function Navbar() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={PUERTO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  color: "rgba(255,255,255,0.9)",
+                  padding: "12px 0",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 500,
+                }}
+              >
+                Puerto San Antonio
+                <span aria-hidden="true">↗</span>
+              </a>
+            </li>
             <li>
               <Link
                 href={cta.href}

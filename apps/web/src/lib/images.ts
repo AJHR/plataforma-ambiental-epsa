@@ -12,55 +12,50 @@ export interface ImageAsset {
 const UNSPLASH = (id: string) => `https://images.unsplash.com/photo-${id}`;
 
 export const IMAGES = {
-  // Bosque aéreo — hero home
-  heroBosque: {
-    src: UNSPLASH("1441974231531-c6227db76b6e"),
-    alt: "Vista aérea de un bosque verde frondoso",
-  },
-  // Costa / mar — proyecto
-  costa: {
+  // Hero Home — olas sobre la costa
+  heroMar: {
     src: UNSPLASH("1505142468610-359e7d316be0"),
-    alt: "Costa con olas rompiendo sobre rocas",
+    alt: "Olas del mar rompiendo sobre la costa rocosa",
   },
-  // Hojas con rocío — compromiso / transparencia
-  hojasRocio: {
-    src: UNSPLASH("1466692476868-aef1dfb1e735"),
-    alt: "Hojas verdes cubiertas de gotas de rocío",
-  },
-  // Módulo: El Proyecto (mapa/territorio)
-  modProyecto: {
-    src: UNSPLASH("1500382017468-9049fed747ef"),
-    alt: "Paisaje de campos verdes vistos desde lo alto",
-  },
-  // Módulo: Seguimiento (agua/medición)
-  modSeguimiento: {
-    src: UNSPLASH("1468421870903-4df1664ac249"),
-    alt: "Superficie de agua clara reflejando la luz",
-  },
-  // Módulo: Participa (comunidad/manos-naturaleza, sin rostros)
-  modParticipa: {
-    src: UNSPLASH("1530836369250-ef72a3f5cda8"),
-    alt: "Manos sosteniendo una pequeña planta con tierra",
-  },
-  // Módulo: Aprende (bosque/educación)
-  modAprende: {
-    src: UNSPLASH("1507413245164-6160d8298b31"),
-    alt: "Sendero entre árboles altos de un bosque",
-  },
-  // Seguimiento — header
-  seguimientoHeader: {
-    src: UNSPLASH("1470115636492-6d2b56f9146d"),
-    alt: "Lago de montaña con aguas tranquilas",
-  },
-  // El Proyecto — hero
+  // Hero El Proyecto — costa y océano
   proyectoHero: {
     src: UNSPLASH("1518837695005-2083093ee35b"),
     alt: "Vista de la costa y el océano al atardecer",
   },
-  // Vegetación nativa — bloque editorial
-  vegetacion: {
-    src: UNSPLASH("1502082553048-f009c37129b9"),
-    alt: "Follaje denso de vegetación nativa",
+  // Header Seguimiento — superficie de agua
+  seguimientoHeader: {
+    src: UNSPLASH("1470115636492-6d2b56f9146d"),
+    alt: "Cuerpo de agua de aguas tranquilas",
+  },
+  // Bloque "Compromiso" — detalle de agua
+  aguaDetalle: {
+    src: UNSPLASH("1468421870903-4df1664ac249"),
+    alt: "Superficie de agua clara reflejando la luz",
+  },
+  // Bloque editorial El Proyecto — mar abierto
+  mar: {
+    src: UNSPLASH("1507525428034-b723cf961d3e"),
+    alt: "Aguas turquesas del mar junto a una playa",
+  },
+  // Módulo: El Proyecto (costa)
+  modProyecto: {
+    src: UNSPLASH("1518837695005-2083093ee35b"),
+    alt: "Costa y océano al atardecer",
+  },
+  // Módulo: Seguimiento (agua / medición)
+  modSeguimiento: {
+    src: UNSPLASH("1468421870903-4df1664ac249"),
+    alt: "Superficie de agua clara",
+  },
+  // Módulo: Participa (mar abierto)
+  modParticipa: {
+    src: UNSPLASH("1507525428034-b723cf961d3e"),
+    alt: "Aguas turquesas del mar",
+  },
+  // Módulo: Aprende (olas)
+  modAprende: {
+    src: UNSPLASH("1505142468610-359e7d316be0"),
+    alt: "Olas del mar sobre la costa",
   },
 } as const satisfies Record<string, ImageAsset>;
 
