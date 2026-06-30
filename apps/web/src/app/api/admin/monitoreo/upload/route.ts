@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
 import { verifyAdminToken } from "@/lib/adminAuth";
+import { writeJson, jsonError } from "@/lib/dataStore";
 
 export const runtime = "nodejs";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
 
 interface SeriesPayload {
   componentCode: string;
@@ -67,11 +64,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const dir = path.join(DATA_DIR, "monitoring");
-    await fs.mkdir(dir, { recursive: true });
-    const destPath = path.join(dir, `${parsed.componentCode}.json`);
-    await fs.writeFile(destPath, JSON.stringify(parsed, null, 2), "utf-8");
-
+    await writeJson(`monitoring/${parsed.componentCode}.json`, parsed);
     return NextResponse.json(
       {
         data: {
@@ -82,7 +75,6 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }

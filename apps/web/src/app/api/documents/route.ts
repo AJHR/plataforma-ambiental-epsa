@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
+import { readJson, jsonError } from "@/lib/dataStore";
 
 interface DocumentMeta {
   id: string;
@@ -23,9 +20,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const statusFilter = searchParams.get("status");
 
-    const filePath = path.join(DATA_DIR, "documents", "meta.json");
-    const raw = await fs.readFile(filePath, "utf-8");
-    let documents = JSON.parse(raw) as DocumentMeta[];
+    let documents = await readJson<DocumentMeta[]>("documents/meta.json");
 
     if (statusFilter) {
       documents = documents.filter((doc) => doc.status === statusFilter);
@@ -33,7 +28,6 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ data: documents });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }

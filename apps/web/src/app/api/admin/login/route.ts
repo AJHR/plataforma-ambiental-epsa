@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
+import { readJson, jsonError } from "@/lib/dataStore";
 
 export const runtime = "nodejs";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
 
 interface User {
   email: string;
@@ -52,9 +49,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const usersPath = path.join(DATA_DIR, "users", "users.json");
-    const raw = await fs.readFile(usersPath, "utf-8");
-    const users = JSON.parse(raw) as User[];
+    const users = await readJson<User[]>("users/users.json");
 
     const user = users.find(
       (u) =>
@@ -78,7 +73,6 @@ export async function POST(request: Request) {
       data: { token, role: user.role, name: user.name },
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }

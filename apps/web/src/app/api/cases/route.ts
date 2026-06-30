@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
+import { readJson, writeJson, jsonError } from "@/lib/dataStore";
 
 export const runtime = "nodejs";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
 
 interface CaseRecord {
   caseNumber: string;
@@ -21,13 +18,10 @@ interface Counter {
 
 export async function GET() {
   try {
-    const filePath = path.join(DATA_DIR, "cases", "cases.json");
-    const raw = await fs.readFile(filePath, "utf-8");
-    const data = JSON.parse(raw) as CaseRecord[];
+    const data = await readJson<CaseRecord[]>("cases/cases.json");
     return NextResponse.json({ data });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }
 
@@ -68,30 +62,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Debe aceptar el consentimiento" }, { status: 400 });
   }
 
-  const counterPath = path.join(DATA_DIR, "cases", "counter.json");
-  const casesPath = path.join(DATA_DIR, "cases", "cases.json");
-
   try {
-    // Read and increment counter
-    const counterRaw = await fs.readFile(counterPath, "utf-8");
-    const counter = JSON.parse(counterRaw) as Counter;
+    // Read and increment year counter.
+    const counter = await readJson<Counter>("cases/counter.json", {});
     const year = String(new Date().getFullYear());
-    const prev = typeof counter[year] === "number" ? counter[year] : 0;
-    const next = prev + 1;
+    const next = (typeof counter[year] === "number" ? counter[year] : 0) + 1;
     counter[year] = next;
-    await fs.writeFile(counterPath, JSON.stringify(counter, null, 2), "utf-8");
+    await writeJson("cases/counter.json", counter);
 
     const caseNumber = `EPSA-${year}-${String(next).padStart(4, "0")}`;
 
-    // Append case record
-    let cases: CaseRecord[] = [];
-    try {
-      const casesRaw = await fs.readFile(casesPath, "utf-8");
-      cases = JSON.parse(casesRaw) as CaseRecord[];
-    } catch {
-      // File may be empty or not exist yet; start fresh
-    }
-
+    // Append the new case.
+    const cases = await readJson<CaseRecord[]>("cases/cases.json", []);
     const newCase: CaseRecord = {
       caseNumber,
       category: category.trim(),
@@ -100,16 +82,14 @@ export async function POST(request: Request) {
       status: "recibido",
       createdAt: new Date().toISOString(),
     };
-
     cases.push(newCase);
-    await fs.writeFile(casesPath, JSON.stringify(cases, null, 2), "utf-8");
+    await writeJson("cases/cases.json", cases);
 
     return NextResponse.json(
       { data: { caseNumber, status: newCase.status } },
       { status: 201 }
     );
   } catch (err) {
-    const message2 = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message2 }, { status: 500 });
+    return jsonError(err);
   }
 }
