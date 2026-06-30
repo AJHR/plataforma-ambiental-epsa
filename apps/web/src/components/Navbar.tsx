@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Accesos directos a las funciones principales de la plataforma.
 const navLinks = [
@@ -47,43 +48,35 @@ export default function Navbar() {
         }}
         aria-label="Navegación principal"
       >
-        {/* Brand */}
+        {/* Brand — logo institucional Puerto San Antonio */}
         <Link
           href="/"
+          aria-label="Puerto San Antonio — Plataforma Ambiental (inicio)"
           style={{
-            fontWeight: 700,
-            fontSize: "1.125rem",
-            letterSpacing: "-0.01em",
-            color: "#ffffff",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "10px",
             flexShrink: 0,
           }}
         >
+          {/* Fondo blanco para legibilidad del logo sobre la barra azul */}
           <span
             style={{
-              background: "var(--color-accent)",
-              color: "var(--color-bg-deep)",
+              display: "inline-flex",
+              alignItems: "center",
+              background: "#ffffff",
               borderRadius: "var(--radius-sm)",
-              padding: "2px 8px",
-              fontSize: "0.75rem",
-              fontWeight: 800,
-              letterSpacing: "0.05em",
+              padding: "6px 10px",
             }}
           >
-            EPSA
-          </span>
-          <span style={{ display: "none" }}>Plataforma Ambiental</span>
-          <span
-            style={{
-              fontSize: "0.875rem",
-              opacity: 0.85,
-              fontWeight: 400,
-            }}
-            className="brand-subtitle"
-          >
-            Plataforma Ambiental
+            <Image
+              src="/logo-puerto.png"
+              alt="Puerto San Antonio"
+              width={260}
+              height={48}
+              priority
+              style={{ height: "30px", width: "auto" }}
+            />
           </span>
         </Link>
 
