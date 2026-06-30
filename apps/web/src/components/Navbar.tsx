@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Accesos directos a las funciones principales de la plataforma.
 const navLinks = [
@@ -25,14 +26,15 @@ export default function Navbar() {
   return (
     <header
       style={{
-        background: "var(--color-primary)",
-        color: "#ffffff",
+        background: "var(--color-surface)",
+        color: "var(--color-ink)",
         minHeight: "64px",
         width: "100%",
         position: "sticky",
         top: 0,
         zIndex: 100,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+        borderBottom: "1px solid var(--color-line)",
+        boxShadow: "0 1px 6px rgba(18,42,56,0.06)",
       }}
     >
       <nav
@@ -47,44 +49,24 @@ export default function Navbar() {
         }}
         aria-label="Navegación principal"
       >
-        {/* Brand */}
+        {/* Brand — logo institucional Puerto San Antonio (sobre barra blanca) */}
         <Link
           href="/"
+          aria-label="Puerto San Antonio — Plataforma Ambiental (inicio)"
           style={{
-            fontWeight: 700,
-            fontSize: "1.125rem",
-            letterSpacing: "-0.01em",
-            color: "#ffffff",
             display: "flex",
             alignItems: "center",
-            gap: "8px",
             flexShrink: 0,
           }}
         >
-          <span
-            style={{
-              background: "var(--color-accent)",
-              color: "var(--color-bg-deep)",
-              borderRadius: "var(--radius-sm)",
-              padding: "2px 8px",
-              fontSize: "0.75rem",
-              fontWeight: 800,
-              letterSpacing: "0.05em",
-            }}
-          >
-            EPSA
-          </span>
-          <span style={{ display: "none" }}>Plataforma Ambiental</span>
-          <span
-            style={{
-              fontSize: "0.875rem",
-              opacity: 0.85,
-              fontWeight: 400,
-            }}
-            className="brand-subtitle"
-          >
-            Plataforma Ambiental
-          </span>
+          <Image
+            src="/logo-puerto.png"
+            alt="Puerto San Antonio"
+            width={260}
+            height={48}
+            priority
+            style={{ height: "32px", width: "auto" }}
+          />
         </Link>
 
         {/* Desktop links */}
@@ -102,7 +84,7 @@ export default function Navbar() {
               <Link
                 href={link.href}
                 style={{
-                  color: "rgba(255,255,255,0.9)",
+                  color: "var(--color-ink)",
                   padding: "8px 12px",
                   borderRadius: "var(--radius-sm)",
                   fontSize: "0.875rem",
@@ -112,15 +94,15 @@ export default function Navbar() {
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLAnchorElement).style.background =
-                    "rgba(255,255,255,0.12)";
+                    "var(--color-bg)";
                   (e.currentTarget as HTMLAnchorElement).style.color =
-                    "#ffffff";
+                    "var(--color-primary)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLAnchorElement).style.background =
                     "transparent";
                   (e.currentTarget as HTMLAnchorElement).style.color =
-                    "rgba(255,255,255,0.9)";
+                    "var(--color-ink)";
                 }}
               >
                 {link.label}
@@ -138,8 +120,8 @@ export default function Navbar() {
                 gap: "4px",
                 padding: "8px 12px",
                 borderRadius: "var(--radius-sm)",
-                border: "1px solid rgba(255,255,255,0.35)",
-                color: "rgba(255,255,255,0.9)",
+                border: "1px solid var(--color-line)",
+                color: "var(--color-primary)",
                 fontSize: "0.875rem",
                 fontWeight: 600,
               }}
@@ -159,8 +141,8 @@ export default function Navbar() {
                 marginLeft: "4px",
                 padding: "8px 16px",
                 borderRadius: "var(--radius-sm)",
-                background: "var(--color-accent)",
-                color: "var(--color-accent-foreground)",
+                background: "var(--color-primary)",
+                color: "#ffffff",
                 fontSize: "0.875rem",
                 fontWeight: 700,
               }}
@@ -178,9 +160,9 @@ export default function Navbar() {
           onClick={() => setMenuOpen((prev) => !prev)}
           style={{
             background: "transparent",
-            border: "1px solid rgba(255,255,255,0.3)",
+            border: "1px solid var(--color-line)",
             borderRadius: "var(--radius-sm)",
-            color: "#ffffff",
+            color: "var(--color-primary)",
             cursor: "pointer",
             padding: "6px 10px",
             display: "none",
@@ -194,7 +176,7 @@ export default function Navbar() {
               display: "block",
               width: "20px",
               height: "2px",
-              background: "#ffffff",
+              background: "var(--color-primary)",
               borderRadius: "1px",
             }}
           />
@@ -203,7 +185,7 @@ export default function Navbar() {
               display: "block",
               width: "20px",
               height: "2px",
-              background: "#ffffff",
+              background: "var(--color-primary)",
               borderRadius: "1px",
             }}
           />
@@ -212,7 +194,7 @@ export default function Navbar() {
               display: "block",
               width: "20px",
               height: "2px",
-              background: "#ffffff",
+              background: "var(--color-primary)",
               borderRadius: "1px",
             }}
           />
@@ -224,8 +206,8 @@ export default function Navbar() {
         <div
           id="mobile-menu"
           style={{
-            background: "var(--color-primary-600)",
-            borderTop: "1px solid rgba(255,255,255,0.1)",
+            background: "var(--color-surface)",
+            borderTop: "1px solid var(--color-line)",
             padding: "12px 24px 20px",
           }}
           className="mobile-menu"
@@ -238,9 +220,9 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   style={{
                     display: "block",
-                    color: "rgba(255,255,255,0.9)",
+                    color: "var(--color-ink)",
                     padding: "12px 0",
-                    borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    borderBottom: "1px solid var(--color-line)",
                     fontSize: "0.9375rem",
                     fontWeight: 500,
                   }}
@@ -259,11 +241,11 @@ export default function Navbar() {
                   display: "flex",
                   alignItems: "center",
                   gap: "6px",
-                  color: "rgba(255,255,255,0.9)",
+                  color: "var(--color-primary)",
                   padding: "12px 0",
-                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  borderBottom: "1px solid var(--color-line)",
                   fontSize: "0.9375rem",
-                  fontWeight: 500,
+                  fontWeight: 600,
                 }}
               >
                 Puerto San Antonio
@@ -280,8 +262,8 @@ export default function Navbar() {
                   textAlign: "center",
                   padding: "12px 0",
                   borderRadius: "var(--radius-sm)",
-                  background: "var(--color-accent)",
-                  color: "var(--color-accent-foreground)",
+                  background: "var(--color-primary)",
+                  color: "#ffffff",
                   fontSize: "0.9375rem",
                   fontWeight: 700,
                 }}
@@ -297,7 +279,6 @@ export default function Navbar() {
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: flex !important; }
-          .brand-subtitle { display: none !important; }
         }
       `}</style>
     </header>
