@@ -12,10 +12,10 @@ export interface ImageAsset {
 const UNSPLASH = (id: string) => `https://images.unsplash.com/photo-${id}`;
 
 export const IMAGES = {
-  // Hero Home — olas sobre la costa
+  // Hero Home — humedal / cuerpo de agua tranquilo
   heroMar: {
-    src: UNSPLASH("1505142468610-359e7d316be0"),
-    alt: "Olas del mar rompiendo sobre la costa rocosa",
+    src: UNSPLASH("1470115636492-6d2b56f9146d"),
+    alt: "Humedal costero de aguas tranquilas",
   },
   // Hero El Proyecto — costa y océano
   proyectoHero: {
