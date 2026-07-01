@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
-import path from "node:path";
 import { verifyAdminToken } from "@/lib/adminAuth";
+import { dataPath, readJson, writeJson, jsonError } from "@/lib/dataStore";
 
 export const runtime = "nodejs";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
 
 interface DocumentMeta {
   id: string;
@@ -50,25 +48,17 @@ export async function POST(request: Request) {
   }
 
   try {
-    const metaPath = path.join(DATA_DIR, "documents", "meta.json");
-
-    let documents: DocumentMeta[] = [];
-    try {
-      const raw = await fs.readFile(metaPath, "utf-8");
-      documents = JSON.parse(raw) as DocumentMeta[];
-    } catch {
-      // meta.json puede no existir todavía; partimos de cero
-    }
+    // meta.json puede no existir todavía; partimos de cero.
+    const documents = await readJson<DocumentMeta[]>("documents/meta.json", []);
 
     const id = nextDocId(documents);
     const originalName =
       file instanceof File && file.name ? file.name : `${id}.pdf`;
 
-    // Guardar el archivo
-    const filesDir = path.join(DATA_DIR, "documents", "files");
-    await fs.mkdir(filesDir, { recursive: true });
+    // Guardar el archivo (binario).
+    await fs.mkdir(dataPath("documents", "files"), { recursive: true });
     const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(path.join(filesDir, `${id}.pdf`), buffer);
+    await fs.writeFile(dataPath("documents", "files", `${id}.pdf`), buffer);
 
     const newDoc: DocumentMeta = {
       id,
@@ -81,11 +71,10 @@ export async function POST(request: Request) {
     };
 
     documents.push(newDoc);
-    await fs.writeFile(metaPath, JSON.stringify(documents, null, 2), "utf-8");
+    await writeJson("documents/meta.json", documents);
 
     return NextResponse.json({ data: newDoc }, { status: 201 });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }

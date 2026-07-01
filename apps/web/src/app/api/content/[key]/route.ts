@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
-import fs from "node:fs/promises";
-import path from "node:path";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
+import { readJson, jsonError } from "@/lib/dataStore";
 
 export async function GET(
   _request: Request,
@@ -16,15 +13,15 @@ export async function GET(
   }
 
   try {
-    const filePath = path.join(DATA_DIR, "content", `${key}.json`);
-    const raw = await fs.readFile(filePath, "utf-8");
-    const data = JSON.parse(raw) as unknown;
+    const data = await readJson<unknown>(`content/${key}.json`);
     return NextResponse.json({ data });
   } catch (err) {
     if ((err as NodeJS.ErrnoException).code === "ENOENT") {
-      return NextResponse.json({ error: "Contenido no encontrado" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Contenido no encontrado" },
+        { status: 404 }
+      );
     }
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }

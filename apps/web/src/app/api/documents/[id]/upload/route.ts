@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
-import path from "node:path";
+import { dataPath, readJson, writeJson, jsonError } from "@/lib/dataStore";
 
 export const runtime = "nodejs";
-
-const DATA_DIR = process.env.DATA_DIR ?? path.resolve(process.cwd(), "../../data");
 
 interface DocumentMeta {
   id: string;
@@ -37,23 +35,19 @@ export async function POST(
   }
 
   try {
-    const filesDir = path.join(DATA_DIR, "documents", "files");
+    const filesDir = dataPath("documents", "files");
     await fs.mkdir(filesDir, { recursive: true });
 
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const destPath = path.join(filesDir, `${id}.pdf`);
-    await fs.writeFile(destPath, buffer);
+    const buffer = Buffer.from(await file.arrayBuffer());
+    await fs.writeFile(dataPath("documents", "files", `${id}.pdf`), buffer);
 
-    // Update meta.json with new sizeBytes
-    const metaPath = path.join(DATA_DIR, "documents", "meta.json");
+    // Update meta.json with new sizeBytes (best-effort).
     try {
-      const metaRaw = await fs.readFile(metaPath, "utf-8");
-      const documents = JSON.parse(metaRaw) as DocumentMeta[];
+      const documents = await readJson<DocumentMeta[]>("documents/meta.json");
       const docIndex = documents.findIndex((d) => d.id === id);
       if (docIndex !== -1) {
         documents[docIndex].sizeBytes = buffer.byteLength;
-        await fs.writeFile(metaPath, JSON.stringify(documents, null, 2), "utf-8");
+        await writeJson("documents/meta.json", documents);
       }
     } catch {
       // Meta update is best-effort; file was already saved
@@ -63,7 +57,6 @@ export async function POST(
       data: { id, sizeBytes: buffer.byteLength, path: `documents/files/${id}.pdf` },
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Error interno del servidor";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return jsonError(err);
   }
 }
