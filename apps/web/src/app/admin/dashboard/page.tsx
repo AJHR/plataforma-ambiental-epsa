@@ -9,6 +9,7 @@ interface MiaqrCase {
   nombre?: string;
   rut?: string;
   category: string;
+  message?: string;
   status: "ingresado" | "acuse" | "evaluacion" | "resuelto" | "recibido";
   createdAt: string;
 }
@@ -89,6 +90,8 @@ export default function AdminDashboardPage() {
   // MIAQR
   const [cases, setCases] = useState<MiaqrCase[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
+  const [casesSearch, setCasesSearch] = useState("");
+  const [selectedCase, setSelectedCase] = useState<MiaqrCase | null>(null);
 
   // Documents list
   const [documents, setDocuments] = useState<DocumentEntry[]>([]);
@@ -121,6 +124,16 @@ export default function AdminDashboardPage() {
       loadDocuments();
     }
   }, [activeSection, authed]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Cerrar el modal de detalle con Escape.
+  useEffect(() => {
+    if (!selectedCase) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setSelectedCase(null);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedCase]);
 
   function getToken() {
     return localStorage.getItem("epsa_admin_token") ?? "";
@@ -261,6 +274,49 @@ export default function AdminDashboardPage() {
     { key: "boletines", label: "Boletines" },
   ];
 
+  // Filtro de búsqueda de la bandeja (N° caso, nombre, RUT, categoría, mensaje).
+  const q = casesSearch.trim().toLowerCase();
+  const filteredCases = q
+    ? cases.filter((c) =>
+        [c.caseNumber, c.nombre, c.rut, c.category, c.message]
+          .filter(Boolean)
+          .some((v) => String(v).toLowerCase().includes(q))
+      )
+    : cases;
+
+  // Exporta la bandeja (filtrada) a un archivo que Excel abre como planilla.
+  function exportCasesToExcel() {
+    const headers = ["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha", "Mensaje"];
+    const esc = (v: unknown) =>
+      String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const rows = filteredCases
+      .map(
+        (c) =>
+          `<tr><td>${esc(c.caseNumber)}</td><td>${esc(c.nombre)}</td><td>${esc(
+            c.rut
+          )}</td><td>${esc(c.category)}</td><td>${esc(
+            STATUS_LABELS[c.status] ?? c.status
+          )}</td><td>${esc(c.createdAt)}</td><td>${esc(c.message)}</td></tr>`
+      )
+      .join("");
+    const html =
+      `<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8" /></head>` +
+      `<body><table border="1"><thead><tr>${headers
+        .map((h) => `<th>${h}</th>`)
+        .join("")}</tr></thead><tbody>${rows}</tbody></table></body></html>`;
+    const blob = new Blob(["﻿", html], {
+      type: "application/vnd.ms-excel;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "bandeja-miaqr.xls";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div
       style={{
@@ -383,6 +439,56 @@ export default function AdminDashboardPage() {
               description="Consultas, quejas y reclamos recibidos a través del mecanismo de participación ciudadana."
             />
 
+            {/* Toolbar: buscador + exportar */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "12px",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "16px",
+              }}
+            >
+              <input
+                type="search"
+                value={casesSearch}
+                onChange={(e) => setCasesSearch(e.target.value)}
+                placeholder="Buscar por N° caso, nombre, RUT, categoría o texto…"
+                aria-label="Buscar en la bandeja"
+                style={{
+                  flex: "1 1 280px",
+                  maxWidth: "420px",
+                  padding: "10px 14px",
+                  borderRadius: "var(--radius-sm)",
+                  border: "1.5px solid var(--color-line)",
+                  background: "var(--color-surface)",
+                  fontSize: "0.875rem",
+                  color: "var(--color-ink)",
+                }}
+              />
+              <button
+                type="button"
+                onClick={exportCasesToExcel}
+                disabled={filteredCases.length === 0}
+                style={{
+                  padding: "10px 18px",
+                  background:
+                    filteredCases.length === 0
+                      ? "var(--color-muted)"
+                      : "var(--color-primary)",
+                  color: "#ffffff",
+                  border: "none",
+                  borderRadius: "var(--radius-sm)",
+                  fontSize: "0.8125rem",
+                  fontWeight: 700,
+                  cursor: filteredCases.length === 0 ? "not-allowed" : "pointer",
+                }}
+              >
+                Descargar Excel
+              </button>
+            </div>
+
             {casesLoading && (
               <p style={{ color: "var(--color-muted)", fontSize: "0.875rem" }}>
                 Cargando casos…
@@ -405,7 +511,23 @@ export default function AdminDashboardPage() {
               </div>
             )}
 
-            {!casesLoading && cases.length > 0 && (
+            {!casesLoading && cases.length > 0 && filteredCases.length === 0 && (
+              <div
+                style={{
+                  background: "var(--color-surface)",
+                  borderRadius: "var(--radius-md)",
+                  border: "1px solid var(--color-line)",
+                  padding: "40px",
+                  textAlign: "center",
+                  color: "var(--color-muted)",
+                  fontSize: "0.875rem",
+                }}
+              >
+                Sin resultados para “{casesSearch}”.
+              </div>
+            )}
+
+            {!casesLoading && filteredCases.length > 0 && (
               <div style={{ overflowX: "auto", borderRadius: "var(--radius-md)" }}>
                 <table
                   style={{
@@ -424,7 +546,7 @@ export default function AdminDashboardPage() {
                         borderBottom: "2px solid var(--color-line)",
                       }}
                     >
-                      {["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha"].map((h) => (
+                      {["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha", ""].map((h) => (
                         <th
                           key={h}
                           style={{
@@ -444,12 +566,12 @@ export default function AdminDashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cases.map((c, idx) => (
+                    {filteredCases.map((c, idx) => (
                       <tr
                         key={c.caseNumber ?? c.id ?? idx}
                         style={{
                           borderBottom:
-                            idx < cases.length - 1
+                            idx < filteredCases.length - 1
                               ? "1px solid var(--color-line)"
                               : "none",
                         }}
@@ -519,6 +641,25 @@ export default function AdminDashboardPage() {
                         >
                           {c.createdAt}
                         </td>
+                        <td style={{ padding: "12px 16px", textAlign: "right", whiteSpace: "nowrap" }}>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedCase(c)}
+                            aria-label={`Ver detalle del caso ${c.caseNumber}`}
+                            style={{
+                              padding: "6px 14px",
+                              background: "transparent",
+                              border: "1.5px solid var(--color-primary)",
+                              borderRadius: "var(--radius-sm)",
+                              fontSize: "0.75rem",
+                              fontWeight: 700,
+                              color: "var(--color-primary)",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Ver
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -544,6 +685,135 @@ export default function AdminDashboardPage() {
                 Actualizar bandeja
               </button>
             </div>
+
+            {/* Modal de detalle del caso */}
+            {selectedCase && (
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`Detalle del caso ${selectedCase.caseNumber}`}
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) setSelectedCase(null);
+                }}
+                style={{
+                  position: "fixed",
+                  inset: 0,
+                  background: "rgba(8, 34, 53, 0.7)",
+                  zIndex: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "24px",
+                }}
+              >
+                <div
+                  style={{
+                    background: "var(--color-surface)",
+                    borderRadius: "var(--radius-lg)",
+                    boxShadow: "0 20px 60px rgba(8,34,53,0.35)",
+                    width: "100%",
+                    maxWidth: "560px",
+                    maxHeight: "90vh",
+                    overflow: "auto",
+                    padding: "28px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      justifyContent: "space-between",
+                      gap: "16px",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <div>
+                      <p
+                        style={{
+                          fontSize: "0.6875rem",
+                          fontWeight: 700,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: "var(--color-muted)",
+                          marginBottom: "4px",
+                        }}
+                      >
+                        Detalle del caso
+                      </p>
+                      <h3
+                        style={{
+                          fontSize: "1.25rem",
+                          fontWeight: 800,
+                          color: "var(--color-primary)",
+                          fontVariantNumeric: "tabular-nums",
+                        }}
+                      >
+                        {selectedCase.caseNumber}
+                      </h3>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCase(null)}
+                      aria-label="Cerrar detalle"
+                      style={{
+                        background: "transparent",
+                        border: "1px solid var(--color-line)",
+                        borderRadius: "var(--radius-sm)",
+                        cursor: "pointer",
+                        padding: "6px 12px",
+                        fontSize: "0.8125rem",
+                        fontWeight: 600,
+                        color: "var(--color-muted)",
+                        flexShrink: 0,
+                      }}
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+
+                  <dl style={{ display: "grid", gap: "12px" }}>
+                    {[
+                      { t: "Nombre", v: selectedCase.nombre },
+                      { t: "RUT", v: selectedCase.rut },
+                      { t: "Categoría", v: selectedCase.category },
+                      { t: "Estado", v: STATUS_LABELS[selectedCase.status] ?? selectedCase.status },
+                      { t: "Fecha", v: selectedCase.createdAt },
+                    ].map(({ t, v }) => (
+                      <div key={t} style={{ display: "flex", gap: "12px", fontSize: "0.875rem" }}>
+                        <dt style={{ minWidth: "96px", color: "var(--color-muted)", fontWeight: 600 }}>{t}</dt>
+                        <dd style={{ color: "var(--color-ink)" }}>{v ?? "—"}</dd>
+                      </div>
+                    ))}
+                    <div>
+                      <dt
+                        style={{
+                          fontSize: "0.875rem",
+                          color: "var(--color-muted)",
+                          fontWeight: 600,
+                          marginBottom: "6px",
+                        }}
+                      >
+                        Mensaje / contenido
+                      </dt>
+                      <dd
+                        style={{
+                          background: "var(--color-bg)",
+                          border: "1px solid var(--color-line)",
+                          borderRadius: "var(--radius-sm)",
+                          padding: "14px 16px",
+                          fontSize: "0.9375rem",
+                          color: "var(--color-ink)",
+                          lineHeight: 1.6,
+                          whiteSpace: "pre-wrap",
+                        }}
+                      >
+                        {selectedCase.message?.trim() || "Sin contenido registrado."}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
