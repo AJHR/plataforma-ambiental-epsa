@@ -70,6 +70,23 @@ test.describe("API · Contenido y documentos", () => {
   });
 });
 
+test.describe("API · Compromisos (Etapa I)", () => {
+  test("GET /api/compromisos devuelve los 8 ítems de Etapa I", async ({
+    request,
+  }) => {
+    const res = await request.get("/api/compromisos");
+    expect(res.status()).toBe(200);
+    const json = await res.json();
+    expect(Array.isArray(json.data)).toBe(true);
+    expect(json.data.length).toBe(8);
+    expect(json.data[0]).toMatchObject({
+      id: expect.any(String),
+      componente: expect.any(String),
+      tipo: expect.any(String),
+    });
+  });
+});
+
 test.describe("API · Casos (MIAQR)", () => {
   test("POST válido crea caso y luego se puede consultar", async ({
     request,

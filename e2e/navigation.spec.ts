@@ -24,6 +24,7 @@ const ROUTES = [
   "/",
   "/el-proyecto",
   "/seguimiento",
+  "/compromisos",
   "/participa",
   "/participa/estado",
   "/aprende",
@@ -58,6 +59,7 @@ test.describe("Navbar — accesos directos", () => {
     for (const label of [
       "El Proyecto",
       "Seguimiento",
+      "Compromisos",
       "Aprende",
       "Boletines",
       "Documentos",
