@@ -35,6 +35,21 @@ const TABS: { code: string; label: string }[] = [
   { code: "suelo", label: "Suelo" },
 ];
 
+// Frecuencia de actualización por componente (TDR §2.2 / ficha CAV OT-2):
+// calidad del aire mensual; fauna y vegetación estacional; resto según los
+// reportes a la SMA (cada dos meses).
+const FRECUENCIAS: Record<string, string> = {
+  aire: "Mensual",
+  fauna: "Estacional",
+  vegetacion: "Estacional",
+  hidrica: "Bimestral",
+  ruido: "Bimestral",
+  sedimentos: "Bimestral",
+  paisaje: "Bimestral",
+  suelo: "Bimestral",
+};
+const frecuenciaDe = (code: string): string => FRECUENCIAS[code] ?? "Bimestral";
+
 // Fallback data when API is unavailable
 const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
   aire: {
@@ -194,7 +209,7 @@ export default function SeguimientoPage() {
         image={IMAGES.seguimientoHeader}
         eyebrow="Plataforma EPSA"
         titleEmphasis="Seguimiento Ambiental"
-        subtitle="Estado de los 8 componentes ambientales monitoreados en el proyecto Puerto Exterior San Antonio. Los datos se actualizan con frecuencia mensual."
+        subtitle="Estado de los 8 componentes ambientales monitoreados en el proyecto Puerto Exterior San Antonio. La frecuencia de actualización varía por componente según el plan de seguimiento."
       />
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "48px 24px 64px" }}>
       {/* Aviso de frecuencia y última actualización */}
@@ -216,7 +231,7 @@ export default function SeguimientoPage() {
       >
         <span>
           <strong style={{ color: "var(--color-ink)" }}>Frecuencia de actualización:</strong>{" "}
-          Mensual
+          Calidad del aire mensual · Fauna y vegetación estacional · Resto bimestral
         </span>
         <span>
           <strong style={{ color: "var(--color-ink)" }}>Última actualización:</strong>{" "}
@@ -389,7 +404,7 @@ export default function SeguimientoPage() {
                     <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>
                       Frecuencia:{" "}
                     </span>
-                    Mensual
+                    {frecuenciaDe(activeTab)}
                   </div>
                   <div>
                     <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>
