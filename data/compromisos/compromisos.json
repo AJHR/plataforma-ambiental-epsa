@@ -1,0 +1,82 @@
+[
+  {
+    "id": "SMC-CCA-2",
+    "tipo": "Plan de seguimiento",
+    "componente": "Calidad del aire",
+    "titulo": "Monitoreo de MP10 y MP2,5 en estaciones de calidad del aire",
+    "descripcion": "Seguimiento de la medida de control: monitoreo de material particulado respirable MP10 y MP2,5 en las estaciones de calidad del aire del área del Proyecto.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Mensual",
+    "area": "Área Portuaria y Vialidad"
+  },
+  {
+    "id": "CAV-CA-2",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Calidad del aire",
+    "titulo": "Plan de seguimiento voluntario monitoreo calidad del aire",
+    "descripcion": "Plan de seguimiento voluntario del monitoreo de la calidad del aire en el área de influencia del Proyecto.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Mensual",
+    "area": "Áreas del Proyecto"
+  },
+  {
+    "id": "CAV-CA-3",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Calidad del aire",
+    "titulo": "Monitoreo material particulado sedimentable en sector canteras",
+    "descripcion": "Monitoreo voluntario de material particulado sedimentable (MPS) en el sector de canteras.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Mensual",
+    "area": "Área Canteras"
+  },
+  {
+    "id": "CAV-RU-2",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Niveles de ruido",
+    "titulo": "Monitoreo de ruido en receptores humanos",
+    "descripcion": "Monitoreo voluntario de los niveles de ruido en receptores humanos del área de influencia del Proyecto.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Según plan de seguimiento",
+    "area": "Áreas del Proyecto"
+  },
+  {
+    "id": "CAV-VI-2",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Vibraciones",
+    "titulo": "Plan de seguimiento voluntario de vibraciones en viviendas cercanas a línea férrea",
+    "descripcion": "Plan de seguimiento voluntario de los niveles de vibraciones en viviendas cercanas a la línea férrea, en el Área Transporte y Vialidad.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Según plan de seguimiento",
+    "area": "Área Transporte y Vialidad"
+  },
+  {
+    "id": "CAV-AS-1",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Fauna y flora",
+    "titulo": "Monitoreo de flora y fauna en lagunas Llolleo y Estuario Río Maipo",
+    "descripcion": "Monitoreo voluntario de flora y fauna en el sistema de lagunas de Llolleo y el estuario del Río Maipo.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Estacional",
+    "area": "Lagunas de Llolleo / Estuario Río Maipo"
+  },
+  {
+    "id": "CAV-EAC-2",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Ecosistemas acuáticos continentales",
+    "titulo": "Monitoreo voluntario de biota acuática en estuario Río Maipo",
+    "descripcion": "Monitoreo voluntario de la biota acuática en el estuario del Río Maipo.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Estacional",
+    "area": "Estuario Río Maipo"
+  },
+  {
+    "id": "CAV-EAC-4",
+    "tipo": "Compromiso Ambiental Voluntario",
+    "componente": "Ecosistemas acuáticos continentales",
+    "titulo": "Plan de seguimiento voluntario ecosistemas acuáticos continentales en Parque Lagunas de Llolleo",
+    "descripcion": "Plan de seguimiento voluntario de los ecosistemas acuáticos continentales en el Parque Lagunas de Llolleo.",
+    "fase": "Construcción y operación",
+    "frecuencia": "Estacional",
+    "area": "Parque Lagunas de Llolleo"
+  }
+]

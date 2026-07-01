@@ -48,6 +48,7 @@ data/**/*.pdf
 !data/cases/cases.json
 !data/cases/counter.json
 !data/newsletter/subscribers.json
+!data/compromisos/*.json
 
 # Autonomous run / Playwright
 logs/
