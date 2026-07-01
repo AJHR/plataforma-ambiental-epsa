@@ -76,6 +76,8 @@ test.describe("API · Casos (MIAQR)", () => {
   }) => {
     const create = await request.post("/api/cases", {
       data: {
+        nombre: "Vecino de Prueba",
+        rut: "11.111.111-1",
         category: "Navegación",
         message: "Caso de prueba de contrato E2E.",
         consent: true,
@@ -93,7 +95,13 @@ test.describe("API · Casos (MIAQR)", () => {
 
   test("POST sin consentimiento → 400", async ({ request }) => {
     const res = await request.post("/api/cases", {
-      data: { category: "Otros", message: "Sin consent", consent: false },
+      data: {
+        nombre: "Vecino",
+        rut: "11.111.111-1",
+        category: "Otros",
+        message: "Sin consent",
+        consent: false,
+      },
     });
     expect(res.status()).toBe(400);
   });

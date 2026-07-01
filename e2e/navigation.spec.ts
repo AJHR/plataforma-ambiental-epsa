@@ -61,7 +61,7 @@ test.describe("Navbar — accesos directos", () => {
       "Aprende",
       "Boletines",
       "Documentos",
-      "Participa",
+      "Contacto",
     ]) {
       await expect(
         nav.getByRole("link", { name: label, exact: true })
@@ -69,10 +69,10 @@ test.describe("Navbar — accesos directos", () => {
     }
   });
 
-  test("el CTA Participa de la barra navega a /participa", async ({ page }) => {
+  test("el CTA Contacto de la barra navega a /participa", async ({ page }) => {
     await page.goto("/");
     const nav = await openNav(page);
-    await nav.getByRole("link", { name: "Participa", exact: true }).click();
+    await nav.getByRole("link", { name: "Contacto", exact: true }).click();
     await expect(page).toHaveURL(/\/participa$/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });

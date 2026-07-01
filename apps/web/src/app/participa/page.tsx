@@ -16,9 +16,29 @@ const CATEGORIES = [
 type Category = (typeof CATEGORIES)[number];
 
 interface FormState {
+  nombre: string;
+  rut: string;
   category: Category | "";
   message: string;
   consent: boolean;
+}
+
+/** Valida un RUT chileno con dígito verificador (módulo 11). */
+function isValidRut(rut: string): boolean {
+  const clean = rut.replace(/[.\s]/g, "").toUpperCase();
+  const m = clean.match(/^(\d{7,8})-([\dK])$/);
+  if (!m) return false;
+  const body = m[1]!;
+  const dv = m[2]!;
+  let sum = 0;
+  let factor = 2;
+  for (let i = body.length - 1; i >= 0; i--) {
+    sum += parseInt(body[i]!, 10) * factor;
+    factor = factor === 7 ? 2 : factor + 1;
+  }
+  const res = 11 - (sum % 11);
+  const expected = res === 11 ? "0" : res === 10 ? "K" : String(res);
+  return dv === expected;
 }
 
 interface SubmitResult {
@@ -29,6 +49,8 @@ type PageStatus = "form" | "submitting" | "success" | "error";
 
 export default function ParticipaPage() {
   const [form, setForm] = useState<FormState>({
+    nombre: "",
+    rut: "",
     category: "",
     message: "",
     consent: false,
@@ -39,6 +61,10 @@ export default function ParticipaPage() {
 
   function validate(): boolean {
     const errors: Partial<Record<keyof FormState, string>> = {};
+    if (!form.nombre.trim()) errors.nombre = "Ingrese su nombre.";
+    if (!form.rut.trim()) errors.rut = "Ingrese su RUT.";
+    else if (!isValidRut(form.rut))
+      errors.rut = "Ingrese un RUT válido (ej. 12.345.678-9).";
     if (!form.category) errors.category = "Seleccione una categoría.";
     if (!form.message.trim() || form.message.trim().length < 10)
       errors.message = "Ingrese un mensaje de al menos 10 caracteres.";
@@ -57,6 +83,8 @@ export default function ParticipaPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          nombre: form.nombre.trim(),
+          rut: form.rut.trim(),
           category: form.category,
           message: form.message,
           consent: form.consent,
@@ -207,7 +235,7 @@ export default function ParticipaPage() {
             <button
               type="button"
               onClick={() => {
-                setForm({ category: "", message: "", consent: false });
+                setForm({ nombre: "", rut: "", category: "", message: "", consent: false });
                 setResult(null);
                 setFieldErrors({});
                 setStatus("form");
@@ -309,6 +337,103 @@ export default function ParticipaPage() {
 
           <form onSubmit={handleSubmit} noValidate>
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              {/* Nombre */}
+              <div>
+                <label
+                  htmlFor="nombre"
+                  style={{
+                    display: "block",
+                    fontSize: "0.8125rem",
+                    fontWeight: 600,
+                    color: "var(--color-ink)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  Nombre <span style={{ color: "var(--sema-bad)" }}>*</span>
+                </label>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  value={form.nombre}
+                  onChange={(e) => {
+                    setForm((f) => ({ ...f, nombre: e.target.value }));
+                    setFieldErrors((fe) => ({ ...fe, nombre: undefined }));
+                  }}
+                  required
+                  placeholder="Nombre y apellido"
+                  aria-describedby={fieldErrors.nombre ? "nombre-error" : undefined}
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    borderRadius: "var(--radius-sm)",
+                    border: `1.5px solid ${fieldErrors.nombre ? "var(--sema-bad)" : "var(--color-line)"}`,
+                    background: "var(--color-bg)",
+                    fontSize: "0.9375rem",
+                    color: "var(--color-ink)",
+                    fontFamily: "inherit",
+                  }}
+                />
+                {fieldErrors.nombre && (
+                  <p
+                    id="nombre-error"
+                    role="alert"
+                    style={{ fontSize: "0.75rem", color: "var(--sema-bad)", marginTop: "4px" }}
+                  >
+                    {fieldErrors.nombre}
+                  </p>
+                )}
+              </div>
+
+              {/* RUT */}
+              <div>
+                <label
+                  htmlFor="rut"
+                  style={{
+                    display: "block",
+                    fontSize: "0.8125rem",
+                    fontWeight: 600,
+                    color: "var(--color-ink)",
+                    marginBottom: "6px",
+                  }}
+                >
+                  RUT <span style={{ color: "var(--sema-bad)" }}>*</span>
+                </label>
+                <input
+                  id="rut"
+                  name="rut"
+                  type="text"
+                  inputMode="text"
+                  value={form.rut}
+                  onChange={(e) => {
+                    setForm((f) => ({ ...f, rut: e.target.value }));
+                    setFieldErrors((fe) => ({ ...fe, rut: undefined }));
+                  }}
+                  required
+                  placeholder="12.345.678-9"
+                  aria-describedby={fieldErrors.rut ? "rut-error" : undefined}
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    borderRadius: "var(--radius-sm)",
+                    border: `1.5px solid ${fieldErrors.rut ? "var(--sema-bad)" : "var(--color-line)"}`,
+                    background: "var(--color-bg)",
+                    fontSize: "0.9375rem",
+                    color: "var(--color-ink)",
+                    fontFamily: "inherit",
+                  }}
+                />
+                {fieldErrors.rut && (
+                  <p
+                    id="rut-error"
+                    role="alert"
+                    style={{ fontSize: "0.75rem", color: "var(--sema-bad)", marginTop: "4px" }}
+                  >
+                    {fieldErrors.rut}
+                  </p>
+                )}
+              </div>
+
               {/* Category */}
               <div>
                 <label

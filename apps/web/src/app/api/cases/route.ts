@@ -5,6 +5,8 @@ export const runtime = "nodejs";
 
 interface CaseRecord {
   caseNumber: string;
+  nombre: string;
+  rut: string;
   category: string;
   message: string;
   consent: boolean;
@@ -36,22 +38,32 @@ export async function POST(request: Request) {
   if (
     typeof body !== "object" ||
     body === null ||
+    !("nombre" in body) ||
+    !("rut" in body) ||
     !("category" in body) ||
     !("message" in body) ||
     !("consent" in body)
   ) {
     return NextResponse.json(
-      { error: "Campos requeridos: category, message, consent" },
+      { error: "Campos requeridos: nombre, rut, category, message, consent" },
       { status: 400 }
     );
   }
 
-  const { category, message, consent } = body as {
+  const { nombre, rut, category, message, consent } = body as {
+    nombre: unknown;
+    rut: unknown;
     category: unknown;
     message: unknown;
     consent: unknown;
   };
 
+  if (typeof nombre !== "string" || nombre.trim() === "") {
+    return NextResponse.json({ error: "'nombre' es requerido" }, { status: 400 });
+  }
+  if (typeof rut !== "string" || rut.trim() === "") {
+    return NextResponse.json({ error: "'rut' es requerido" }, { status: 400 });
+  }
   if (typeof category !== "string" || category.trim() === "") {
     return NextResponse.json({ error: "'category' debe ser un texto" }, { status: 400 });
   }
@@ -76,6 +88,8 @@ export async function POST(request: Request) {
     const cases = await readJson<CaseRecord[]>("cases/cases.json", []);
     const newCase: CaseRecord = {
       caseNumber,
+      nombre: nombre.trim(),
+      rut: rut.trim(),
       category: category.trim(),
       message: message.trim(),
       consent: true,
