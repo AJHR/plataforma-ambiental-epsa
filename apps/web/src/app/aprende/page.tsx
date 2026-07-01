@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface Capsule {
@@ -404,9 +405,17 @@ export default function AprendePage() {
             lineHeight: 1.65,
           }}
         >
-          Recursos para entender el monitoreo ambiental del Puerto Exterior.
-          Cápsulas educativas, glosario de términos y respuestas a las preguntas
-          más frecuentes.
+          Material educativo para <strong>aprender a interpretar los datos y
+          resultados</strong> del monitoreo ambiental del Puerto Exterior, por
+          componente. Cápsulas educativas, glosario de términos y preguntas
+          frecuentes. ¿Quieres ver los datos? Visita el{" "}
+          <Link
+            href="/seguimiento"
+            style={{ color: "var(--color-accent-700)", fontWeight: 600 }}
+          >
+            Seguimiento Ambiental
+          </Link>
+          .
         </p>
       </header>
 

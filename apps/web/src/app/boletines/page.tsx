@@ -178,8 +178,9 @@ export default function BoletinesPage() {
             lineHeight: 1.65,
           }}
         >
-          Mantente informado sobre el estado ambiental del proyecto. Suscríbete
-          para recibir los boletines mensuales directamente en tu correo.
+          Boletines y newsletters con los avances en materias ambientales y
+          sociales, las medidas implementadas, indicadores clave y gráficos e
+          infografías simples. Suscríbete para recibirlos en tu correo.
         </p>
       </header>
 

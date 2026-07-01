@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 
+// Clasificaciones de temas del MIAQR (redacción textual del TDR §2.3).
 const CATEGORIES = [
   "Impactos ambientales y sociales",
-  "Navegación",
-  "Gestión vial San Juan",
+  "Información y seguridad en la navegación",
+  "Gestión Vial Sector San Juan",
   "Pueblos indígenas",
-  "Reasentamiento",
+  "Reasentamiento de la población",
   "Trabajo y condiciones laborales",
   "Otros",
 ] as const;
@@ -303,8 +304,36 @@ export default function ParticipaPage() {
         >
           Envíe su consulta, queja o reclamo relacionado con el proyecto EPSA.
           Todas las comunicaciones son registradas y reciben una respuesta
-          formal.
+          formal. Este mecanismo cubre todas las fases del proyecto y aborda
+          temas ambientales, sociales, de género y etnicidad, garantizando la
+          transparencia y la privacidad de las personas.
         </p>
+
+        {/* Plazos de respuesta (TDR §2.3) */}
+        <div
+          role="note"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "8px 20px",
+            marginTop: "16px",
+            padding: "12px 16px",
+            background: "var(--color-bg)",
+            border: "1px solid var(--color-line)",
+            borderRadius: "var(--radius-sm)",
+            fontSize: "0.8125rem",
+            color: "var(--color-muted)",
+          }}
+        >
+          <span>
+            <strong style={{ color: "var(--color-ink)" }}>Consultas simples:</strong>{" "}
+            respuesta hasta en 1 mes
+          </span>
+          <span>
+            <strong style={{ color: "var(--color-ink)" }}>Casos complejos:</strong>{" "}
+            respuesta hasta en 2 meses
+          </span>
+        </div>
       </div>
 
       <div
@@ -646,6 +675,75 @@ export default function ParticipaPage() {
               </div>
             </div>
           </form>
+        </div>
+
+        {/* Canales de atención (ficha CAV OT-2) */}
+        <div
+          style={{
+            background: "var(--color-surface)",
+            borderRadius: "var(--radius-lg)",
+            border: "1px solid var(--color-line)",
+            boxShadow: "var(--shadow-card)",
+            padding: "32px",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "1.0625rem",
+              fontWeight: 700,
+              color: "var(--color-ink)",
+              marginBottom: "8px",
+            }}
+          >
+            Canales de atención
+          </h2>
+          <p
+            style={{
+              fontSize: "0.875rem",
+              color: "var(--color-muted)",
+              marginBottom: "16px",
+              lineHeight: 1.6,
+            }}
+          >
+            EPSA mantiene disponibles varios canales de información y comunicación
+            con la comunidad durante todas las fases del proyecto:
+          </p>
+          <ul style={{ listStyle: "none", display: "grid", gap: "10px" }}>
+            {[
+              { t: "Formulario web", d: "Este mecanismo de solicitudes, quejas y reclamos (MIAQR)." },
+              { t: "Correo electrónico", d: "Casilla de contacto del equipo social EPSA (se publica al implementar)." },
+              { t: "Línea telefónica de consultas", d: "Para dudas, consultas y reclamos (se publica al implementar)." },
+              { t: "Línea de emergencias", d: "Para dar aviso de eventualidades relacionadas al proyecto (se publica al implementar)." },
+              { t: "Equipo social EPSA", d: "Profesionales a cargo de la atención y actualización de la plataforma." },
+            ].map((c) => (
+              <li
+                key={c.t}
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  alignItems: "flex-start",
+                  fontSize: "0.875rem",
+                  color: "var(--color-muted)",
+                  lineHeight: 1.5,
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  style={{
+                    marginTop: "7px",
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    background: "var(--color-accent-700)",
+                    flexShrink: 0,
+                  }}
+                />
+                <span>
+                  <strong style={{ color: "var(--color-ink)" }}>{c.t}:</strong> {c.d}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Status lookup section */}

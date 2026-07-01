@@ -143,6 +143,12 @@ export default function ElProyectoPage() {
             comercio exterior de Chile. El monitoreo ambiental cubre ocho
             componentes bajo la Resolución de Calificación Ambiental (RCA):
           </p>
+          <p className="mt-4 rounded-md border border-line bg-bg p-4 text-sm leading-relaxed text-muted">
+            <span className="font-semibold text-ink">Medidas incorporadas en el diseño:</span>{" "}
+            el Proyecto incluye <span className="font-medium text-ink">barreras acústicas</span> y
+            obras de <span className="font-medium text-ink">mejoramiento de la línea férrea</span>,
+            orientadas a mitigar los impactos de su operación.
+          </p>
           <ul className="mt-6 grid grid-cols-2 gap-x-4 gap-y-2">
             {[
               "Calidad del Aire",
