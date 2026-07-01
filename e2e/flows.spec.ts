@@ -8,6 +8,8 @@ import { test, expect } from "@playwright/test";
 test.describe("Flujo MIAQR — enviar consulta y seguir su estado", () => {
   test("crea un caso y lo consulta por su número", async ({ page }) => {
     await page.goto("/participa");
+    await page.getByLabel(/nombre/i).fill("Vecino de Prueba");
+    await page.getByLabel(/rut/i).fill("11.111.111-1");
     await page.getByLabel(/categoría/i).selectOption({ index: 1 });
     await page
       .getByLabel(/mensaje|descripción/i)

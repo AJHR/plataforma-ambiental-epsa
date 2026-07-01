@@ -15,7 +15,7 @@ const navLinks = [
 ] as const;
 
 // CTA destacado: participar y hacer consultas (MIAQR).
-const cta = { href: "/participa", label: "Participa" } as const;
+const cta = { href: "/participa", label: "Contacto" } as const;
 
 // Enlace externo al sitio institucional de Puerto San Antonio.
 const PUERTO_URL = "https://www.puertosanantonio.com";
@@ -110,6 +110,23 @@ export default function Navbar() {
             </li>
           ))}
           <li>
+            <Link
+              href={cta.href}
+              style={{
+                display: "block",
+                marginLeft: "4px",
+                padding: "8px 16px",
+                borderRadius: "var(--radius-sm)",
+                background: "var(--color-primary)",
+                color: "#ffffff",
+                fontSize: "0.875rem",
+                fontWeight: 700,
+              }}
+            >
+              {cta.label}
+            </Link>
+          </li>
+          <li>
             <a
               href={PUERTO_URL}
               target="_blank"
@@ -132,23 +149,6 @@ export default function Navbar() {
                 (se abre en una pestaña nueva)
               </span>
             </a>
-          </li>
-          <li>
-            <Link
-              href={cta.href}
-              style={{
-                display: "block",
-                marginLeft: "4px",
-                padding: "8px 16px",
-                borderRadius: "var(--radius-sm)",
-                background: "var(--color-primary)",
-                color: "#ffffff",
-                fontSize: "0.875rem",
-                fontWeight: 700,
-              }}
-            >
-              {cta.label}
-            </Link>
           </li>
         </ul>
 
@@ -232,27 +232,6 @@ export default function Navbar() {
               </li>
             ))}
             <li>
-              <a
-                href={PUERTO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  color: "var(--color-primary)",
-                  padding: "12px 0",
-                  borderBottom: "1px solid var(--color-line)",
-                  fontSize: "0.9375rem",
-                  fontWeight: 600,
-                }}
-              >
-                Puerto San Antonio
-                <span aria-hidden="true">↗</span>
-              </a>
-            </li>
-            <li>
               <Link
                 href={cta.href}
                 onClick={() => setMenuOpen(false)}
@@ -270,6 +249,28 @@ export default function Navbar() {
               >
                 {cta.label}
               </Link>
+            </li>
+            <li>
+              <a
+                href={PUERTO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  color: "var(--color-primary)",
+                  padding: "12px 0",
+                  marginTop: "12px",
+                  borderTop: "1px solid var(--color-line)",
+                  fontSize: "0.9375rem",
+                  fontWeight: 600,
+                }}
+              >
+                Puerto San Antonio
+                <span aria-hidden="true">↗</span>
+              </a>
             </li>
           </ul>
         </div>

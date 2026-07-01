@@ -21,7 +21,7 @@ const modules = [
   },
   {
     href: "/seguimiento",
-    caption: "Datos en vivo",
+    caption: "Datos mensuales",
     title: "Seguimiento Ambiental",
     image: IMAGES.modSeguimiento,
   },
@@ -42,7 +42,7 @@ const modules = [
 const stats = [
   { value: "8", label: "Componentes monitoreados" },
   { value: "4", label: "Áreas de influencia" },
-  { value: "24/7", label: "Monitoreo continuo" },
+  { value: "Mensual", label: "Actualización de datos" },
   { value: "100%", label: "Datos públicos" },
 ];
 
@@ -60,7 +60,7 @@ export default function HomePage() {
           <>
             <Link href="/seguimiento">
               <Button size="lg">
-                Ver datos en vivo
+                Ver seguimiento
                 <ArrowRight className="size-5" aria-hidden />
               </Button>
             </Link>

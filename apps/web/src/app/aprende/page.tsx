@@ -117,7 +117,7 @@ const FALLBACK_FAQ: FaqItem[] = [
   {
     question: "¿Quién fiscaliza el cumplimiento del monitoreo?",
     answer:
-      "La Superintendencia del Medio Ambiente (SMA) es el organismo fiscalizador. El Servicio de Evaluación Ambiental (SEA) supervisa el cumplimiento de las condiciones de la RCA. Adicionalmente, existe un Comité Ciudadano de Monitoreo que puede acceder a todos los datos en tiempo real.",
+      "La Superintendencia del Medio Ambiente (SMA) es el organismo fiscalizador. El Servicio de Evaluación Ambiental (SEA) supervisa el cumplimiento de las condiciones de la RCA. Adicionalmente, existe un Comité Ciudadano de Monitoreo que puede acceder a todos los datos de monitoreo.",
   },
   {
     question: "¿Cómo puedo reportar una anomalía ambiental?",

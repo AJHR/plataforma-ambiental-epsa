@@ -43,7 +43,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "ok",
     phrase: "Los niveles de material particulado se encuentran dentro de la norma.",
     measuredBy: "Estación SINCA — EPSA Norte",
-    lastMeasured: "2026-06-25",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/aire-junio-2026.pdf",
   },
   hidrica: {
@@ -52,7 +52,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "ok",
     phrase: "Parámetros fisicoquímicos dentro de rangos normales.",
     measuredBy: "Laboratorio EPSA — Zona Marina",
-    lastMeasured: "2026-06-24",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/hidrica-junio-2026.pdf",
   },
   fauna: {
@@ -61,7 +61,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "warn",
     phrase: "Se registró actividad inusual en aves migratorias. Seguimiento activo.",
     measuredBy: "Equipo de biodiversidad EPSA",
-    lastMeasured: "2026-06-20",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/fauna-junio-2026.pdf",
   },
   vegetacion: {
@@ -70,7 +70,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "ok",
     phrase: "Cobertura vegetal estable, sin alteraciones significativas.",
     measuredBy: "Unidad de flora y vegetación EPSA",
-    lastMeasured: "2026-06-18",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/vegetacion-junio-2026.pdf",
   },
   ruido: {
@@ -79,7 +79,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "warn",
     phrase: "Niveles de ruido diurno cerca del límite normativo durante jornadas de obra.",
     measuredBy: "Laboratorio acústico EPSA",
-    lastMeasured: "2026-06-25",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/ruido-junio-2026.pdf",
   },
   sedimentos: {
@@ -88,7 +88,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "ok",
     phrase: "Concentración de sedimentos en suspensión dentro de parámetros normales.",
     measuredBy: "Monitoreo marino EPSA",
-    lastMeasured: "2026-06-22",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/sedimentos-junio-2026.pdf",
   },
   paisaje: {
@@ -97,7 +97,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "ok",
     phrase: "Índice de calidad paisajística sin variación relevante respecto a la línea de base.",
     measuredBy: "Equipo de evaluación visual EPSA",
-    lastMeasured: "2026-06-15",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/paisaje-junio-2026.pdf",
   },
   suelo: {
@@ -106,7 +106,7 @@ const FALLBACK_COMPONENTS: Record<string, MonitoringComponent> = {
     status: "ok",
     phrase: "No se detectan contaminantes sobre los límites reglamentarios.",
     measuredBy: "Laboratorio de suelos EPSA",
-    lastMeasured: "2026-06-10",
+    lastMeasured: "2026-06-30",
     downloadUrl: "/documentos/suelo-junio-2026.pdf",
   },
 };
@@ -126,10 +126,10 @@ function buildFallbackSeries(code: string): DataPoint[] {
   const base = seedMap[code] ?? 50;
   const unit = unitMap[code] ?? "u";
   const threshold = threshMap[code];
-  const now = new Date("2026-06-26");
+  // Serie mensual: 12 mediciones, una por mes, terminando el 30/06/2026.
   return Array.from({ length: 12 }, (_, i) => {
-    const d = new Date(now);
-    d.setDate(d.getDate() - (11 - i) * 7);
+    const d = new Date(Date.UTC(2026, 6, 0)); // 30 jun 2026 (día 0 de julio)
+    d.setUTCMonth(d.getUTCMonth() - (11 - i));
     const jitter = (Math.sin(i * 1.7 + code.length) * 0.15 + (i > 7 ? 0.06 : 0)) * base;
     return {
       date: d.toISOString().slice(0, 10),
@@ -194,9 +194,36 @@ export default function SeguimientoPage() {
         image={IMAGES.seguimientoHeader}
         eyebrow="Plataforma EPSA"
         titleEmphasis="Seguimiento Ambiental"
-        subtitle="Estado actualizado de los 8 componentes ambientales monitoreados en la Etapa I del proyecto Puerto Exterior San Antonio."
+        subtitle="Estado de los 8 componentes ambientales monitoreados en el proyecto Puerto Exterior San Antonio. Los datos se actualizan con frecuencia mensual."
       />
       <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "48px 24px 64px" }}>
+      {/* Aviso de frecuencia y última actualización */}
+      <div
+        role="note"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "8px 20px",
+          alignItems: "center",
+          padding: "12px 16px",
+          marginBottom: "24px",
+          background: "var(--color-bg)",
+          border: "1px solid var(--color-line)",
+          borderRadius: "var(--radius-sm)",
+          fontSize: "0.875rem",
+          color: "var(--color-muted)",
+        }}
+      >
+        <span>
+          <strong style={{ color: "var(--color-ink)" }}>Frecuencia de actualización:</strong>{" "}
+          Mensual
+        </span>
+        <span>
+          <strong style={{ color: "var(--color-ink)" }}>Última actualización:</strong>{" "}
+          30/06/2026
+        </span>
+      </div>
+
       {/* Tab bar */}
       <div
         style={{
@@ -360,7 +387,13 @@ export default function SeguimientoPage() {
                   </div>
                   <div>
                     <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>
-                      Última medición:{" "}
+                      Frecuencia:{" "}
+                    </span>
+                    Mensual
+                  </div>
+                  <div>
+                    <span style={{ fontWeight: 600, color: "var(--color-ink)" }}>
+                      Última actualización:{" "}
                     </span>
                     {current.lastMeasured}
                   </div>

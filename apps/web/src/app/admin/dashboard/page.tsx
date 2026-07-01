@@ -4,10 +4,12 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface MiaqrCase {
-  id: string;
+  id?: string;
   caseNumber: string;
+  nombre?: string;
+  rut?: string;
   category: string;
-  status: "ingresado" | "acuse" | "evaluacion" | "resuelto";
+  status: "ingresado" | "acuse" | "evaluacion" | "resuelto" | "recibido";
   createdAt: string;
 }
 
@@ -27,6 +29,7 @@ type ActiveSection =
   | "boletines";
 
 const STATUS_LABELS: Record<MiaqrCase["status"], string> = {
+  recibido: "Recibido",
   ingresado: "Ingresado",
   acuse: "Acuse",
   evaluacion: "Evaluación",
@@ -34,6 +37,7 @@ const STATUS_LABELS: Record<MiaqrCase["status"], string> = {
 };
 
 const STATUS_COLORS: Record<MiaqrCase["status"], string> = {
+  recibido: "var(--color-accent)",
   ingresado: "var(--color-accent)",
   acuse: "var(--sema-warn)",
   evaluacion: "var(--color-primary)",
@@ -420,7 +424,7 @@ export default function AdminDashboardPage() {
                         borderBottom: "2px solid var(--color-line)",
                       }}
                     >
-                      {["N° Caso", "Categoría", "Estado", "Fecha"].map((h) => (
+                      {["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha"].map((h) => (
                         <th
                           key={h}
                           style={{
@@ -442,7 +446,7 @@ export default function AdminDashboardPage() {
                   <tbody>
                     {cases.map((c, idx) => (
                       <tr
-                        key={c.id}
+                        key={c.caseNumber ?? c.id ?? idx}
                         style={{
                           borderBottom:
                             idx < cases.length - 1
@@ -460,6 +464,25 @@ export default function AdminDashboardPage() {
                           }}
                         >
                           {c.caseNumber}
+                        </td>
+                        <td
+                          style={{
+                            padding: "12px 16px",
+                            color: "var(--color-ink)",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {c.nombre ?? "—"}
+                        </td>
+                        <td
+                          style={{
+                            padding: "12px 16px",
+                            color: "var(--color-muted)",
+                            fontVariantNumeric: "tabular-nums",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {c.rut ?? "—"}
                         </td>
                         <td
                           style={{
