@@ -17,10 +17,11 @@ export const metadata = {
     "Descripción del Puerto Exterior de San Antonio: terminales, fases, áreas de obras y monitoreo ambiental del proyecto EPSA.",
 };
 
-// Documento oficial: Anexo ADC-2 — Actualización Capítulo 1, Descripción de
-// Proyecto (EIA "Puerto Exterior de San Antonio"). Reemplazar por la URL directa
-// del PDF oficial cuando esté disponible en un host público.
-const PROJECT_PDF_URL = "https://www.puertosanantonio.com";
+// Expediente oficial del proyecto en el SEIA (Servicio de Evaluación Ambiental):
+// EIA "Puerto Exterior de San Antonio". Desde la ficha se accede a los documentos
+// del expediente (incluida la Descripción de Proyecto / Anexo ADC-2).
+const PROJECT_PDF_URL =
+  "https://seia.sea.gob.cl/expediente/ficha/fichaPrincipal.php?modo=ficha&id_expediente=2146439114";
 
 // Zonas de monitoreo ambiental (coinciden con el visor de mapa).
 const monitoringAreas = [
@@ -262,11 +263,12 @@ export default function ElProyectoPage() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-ink">
-                  Documento oficial (EIA)
+                  Expediente oficial (SEIA)
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-muted">
-                  Anexo ADC-2 — Actualización Capítulo 1, Descripción de Proyecto
-                  (Estudio de Impacto Ambiental, Puerto Exterior de San Antonio).
+                  Estudio de Impacto Ambiental del Puerto Exterior de San Antonio,
+                  incluida la Descripción de Proyecto (Anexo ADC-2), en el Servicio
+                  de Evaluación Ambiental.
                 </p>
               </div>
             </div>
@@ -276,7 +278,7 @@ export default function ElProyectoPage() {
               rel="noopener noreferrer"
               className="inline-flex shrink-0 items-center gap-2 rounded-md bg-primary px-6 py-3 font-semibold text-white transition-colors hover:bg-primary-600"
             >
-              Ver documento (PDF)
+              Ver expediente en el SEIA
               <ArrowRight className="size-4" aria-hidden />
               <span className="sr-only">(se abre en una pestaña nueva)</span>
             </a>
