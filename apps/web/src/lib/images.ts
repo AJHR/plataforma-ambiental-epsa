@@ -12,10 +12,10 @@ export interface ImageAsset {
 const UNSPLASH = (id: string) => `https://images.unsplash.com/photo-${id}`;
 
 export const IMAGES = {
-  // Hero Home — olas sobre la costa
+  // Hero Home — humedal costero (asset local en public/)
   heroMar: {
-    src: UNSPLASH("1505142468610-359e7d316be0"),
-    alt: "Olas del mar rompiendo sobre la costa rocosa",
+    src: "/humedal.jpg",
+    alt: "Humedal costero con garza en vuelo sobre esteros y vegetación",
   },
   // Hero El Proyecto — costa y océano
   proyectoHero: {
@@ -61,7 +61,10 @@ export const IMAGES = {
 
 export type ImageKey = keyof typeof IMAGES;
 
-/** Construye la URL de Unsplash con parámetros de optimización. */
+/** Construye la URL de la imagen con parámetros de optimización. Los assets
+ * locales (rutas que empiezan con "/") se sirven tal cual; Next/Image los
+ * optimiza igual y no aceptan los parámetros de Unsplash. */
 export function imageUrl(asset: ImageAsset, width = 1600): string {
+  if (asset.src.startsWith("/")) return asset.src;
   return `${asset.src}?auto=format&fit=crop&q=80&w=${width}`;
 }
