@@ -27,15 +27,15 @@ export const IMAGES = {
     src: UNSPLASH("1470115636492-6d2b56f9146d"),
     alt: "Cuerpo de agua de aguas tranquilas",
   },
-  // Bloque "Compromiso" — detalle de agua
+  // Bloque "Compromiso" — mar / superficie de agua tranquila
   aguaDetalle: {
-    src: UNSPLASH("1468421870903-4df1664ac249"),
-    alt: "Superficie de agua clara reflejando la luz",
+    src: UNSPLASH("1470115636492-6d2b56f9146d"),
+    alt: "Cuerpo de agua costero de aguas tranquilas",
   },
-  // Bloque editorial El Proyecto — mar abierto
+  // Bloque editorial El Proyecto — mar abierto / olas en la costa
   mar: {
-    src: UNSPLASH("1507525428034-b723cf961d3e"),
-    alt: "Aguas turquesas del mar junto a una playa",
+    src: UNSPLASH("1505142468610-359e7d316be0"),
+    alt: "Olas del mar rompiendo sobre la costa",
   },
   // Módulo: El Proyecto (costa)
   modProyecto: {
@@ -44,13 +44,13 @@ export const IMAGES = {
   },
   // Módulo: Seguimiento (agua / medición)
   modSeguimiento: {
-    src: UNSPLASH("1468421870903-4df1664ac249"),
-    alt: "Superficie de agua clara",
+    src: UNSPLASH("1470115636492-6d2b56f9146d"),
+    alt: "Cuerpo de agua costero de aguas tranquilas",
   },
   // Módulo: Participa (mar abierto)
   modParticipa: {
-    src: UNSPLASH("1507525428034-b723cf961d3e"),
-    alt: "Aguas turquesas del mar",
+    src: UNSPLASH("1505142468610-359e7d316be0"),
+    alt: "Olas del mar rompiendo sobre la costa",
   },
   // Módulo: Aprende (olas)
   modAprende: {
