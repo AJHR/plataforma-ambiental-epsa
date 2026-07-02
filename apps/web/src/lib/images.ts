@@ -52,10 +52,10 @@ export const IMAGES = {
     src: UNSPLASH("1505142468610-359e7d316be0"),
     alt: "Olas del mar rompiendo sobre la costa",
   },
-  // Módulo: Aprende (olas)
+  // Módulo: Aprende — humedal costero (asset local, distinto de Participa)
   modAprende: {
-    src: UNSPLASH("1505142468610-359e7d316be0"),
-    alt: "Olas del mar sobre la costa",
+    src: "/humedal.jpg",
+    alt: "Humedal costero con garza en vuelo sobre esteros y vegetación",
   },
 } as const satisfies Record<string, ImageAsset>;
 
