@@ -127,7 +127,7 @@ export default function HomePage() {
       {/* Banda de estadísticas */}
       <Section tone="deep" className="!py-16">
         <Container>
-          <div className="grid grid-cols-2 gap-8 text-center lg:grid-cols-4">
+          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-8 text-center sm:grid-cols-3">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <div className="text-4xl font-extrabold text-accent sm:text-5xl">
