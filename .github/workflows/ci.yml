@@ -14,6 +14,10 @@ jobs:
   ci:
     name: Lint, Typecheck, Test, Build & E2E
     runs-on: ubuntu-latest
+    # El gate de contraseña del demo se desactiva en CI para que los E2E
+    # naveguen directo (en producción/demo queda activo por defecto).
+    env:
+      NEXT_PUBLIC_DEMO_GATE: "off"
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

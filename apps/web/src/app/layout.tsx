@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import SiteGate from "@/components/SiteGate";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,18 +24,20 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <body>
-        <Navbar />
-        <main style={{ minHeight: "calc(100vh - 64px)" }}>{children}</main>
-        <footer
-          style={{
-            background: "var(--color-bg-deep)",
-            color: "white",
-            padding: "24px",
-            textAlign: "center",
-          }}
-        >
-          <p>© 2026 EPSA — Plataforma de Información Ambiental</p>
-        </footer>
+        <SiteGate>
+          <Navbar />
+          <main style={{ minHeight: "calc(100vh - 64px)" }}>{children}</main>
+          <footer
+            style={{
+              background: "var(--color-bg-deep)",
+              color: "white",
+              padding: "24px",
+              textAlign: "center",
+            }}
+          >
+            <p>© 2026 EPSA — Plataforma de Información Ambiental</p>
+          </footer>
+        </SiteGate>
       </body>
     </html>
   );
