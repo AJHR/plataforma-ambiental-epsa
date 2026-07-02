@@ -9,6 +9,7 @@ interface MiaqrCase {
   nombre?: string;
   rut?: string;
   category: string;
+  message?: string;
   status: "ingresado" | "acuse" | "evaluacion" | "resuelto" | "recibido";
   createdAt: string;
 }
@@ -89,6 +90,8 @@ export default function AdminDashboardPage() {
   // MIAQR
   const [cases, setCases] = useState<MiaqrCase[]>([]);
   const [casesLoading, setCasesLoading] = useState(false);
+  const [casesSearch, setCasesSearch] = useState("");
+  const [selectedCase, setSelectedCase] = useState<MiaqrCase | null>(null);
 
   // Documents list
   const [documents, setDocuments] = useState<DocumentEntry[]>([]);
@@ -122,6 +125,16 @@ export default function AdminDashboardPage() {
     }
   }, [activeSection, authed]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Cierra el modal de detalle con la tecla Escape.
+  useEffect(() => {
+    if (!selectedCase) return;
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setSelectedCase(null);
+    }
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedCase]);
+
   function getToken() {
     return localStorage.getItem("epsa_admin_token") ?? "";
   }
@@ -141,6 +154,54 @@ export default function AdminDashboardPage() {
     } finally {
       setCasesLoading(false);
     }
+  }
+
+  // Filtra los casos por número, nombre, RUT, categoría o contenido del mensaje.
+  const filteredCases = cases.filter((c) => {
+    const q = casesSearch.trim().toLowerCase();
+    if (!q) return true;
+    return [c.caseNumber, c.nombre, c.rut, c.category, c.message]
+      .filter((v): v is string => typeof v === "string")
+      .some((v) => v.toLowerCase().includes(q));
+  });
+
+  // Descarga la bandeja como archivo Excel (tabla HTML con MIME de Excel).
+  function exportCasesToExcel() {
+    const headers = ["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha", "Mensaje"];
+    const escape = (v: unknown) =>
+      String(v ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    const rows = filteredCases
+      .map(
+        (c) =>
+          `<tr>${[
+            c.caseNumber,
+            c.nombre ?? "",
+            c.rut ?? "",
+            c.category,
+            STATUS_LABELS[c.status] ?? c.status,
+            c.createdAt,
+            c.message ?? "",
+          ]
+            .map((v) => `<td>${escape(v)}</td>`)
+            .join("")}</tr>`
+      )
+      .join("");
+    const table = `<table><thead><tr>${headers
+      .map((h) => `<th>${escape(h)}</th>`)
+      .join("")}</tr></thead><tbody>${rows}</tbody></table>`;
+    const html = `<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8" /></head><body>${table}</body></html>`;
+    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "bandeja-miaqr.xls";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   async function loadDocuments() {
@@ -389,6 +450,54 @@ export default function AdminDashboardPage() {
               </p>
             )}
 
+            {!casesLoading && cases.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "12px",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "16px",
+                }}
+              >
+                <input
+                  type="search"
+                  value={casesSearch}
+                  onChange={(e) => setCasesSearch(e.target.value)}
+                  placeholder="Buscar por caso, nombre, RUT, categoría o mensaje…"
+                  aria-label="Buscar casos"
+                  style={{
+                    flex: 1,
+                    minWidth: "240px",
+                    padding: "9px 14px",
+                    borderRadius: "var(--radius-sm)",
+                    border: "1px solid var(--color-line)",
+                    background: "var(--color-surface)",
+                    fontSize: "0.875rem",
+                    color: "var(--color-ink)",
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={exportCasesToExcel}
+                  style={{
+                    padding: "9px 20px",
+                    background: "var(--color-primary)",
+                    color: "#ffffff",
+                    border: "none",
+                    borderRadius: "var(--radius-sm)",
+                    fontSize: "0.8125rem",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Descargar Excel
+                </button>
+              </div>
+            )}
+
             {!casesLoading && cases.length === 0 && (
               <div
                 style={{
@@ -424,7 +533,7 @@ export default function AdminDashboardPage() {
                         borderBottom: "2px solid var(--color-line)",
                       }}
                     >
-                      {["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha"].map((h) => (
+                      {["N° Caso", "Nombre", "RUT", "Categoría", "Estado", "Fecha", ""].map((h) => (
                         <th
                           key={h}
                           style={{
@@ -444,12 +553,12 @@ export default function AdminDashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {cases.map((c, idx) => (
+                    {filteredCases.map((c, idx) => (
                       <tr
                         key={c.caseNumber ?? c.id ?? idx}
                         style={{
                           borderBottom:
-                            idx < cases.length - 1
+                            idx < filteredCases.length - 1
                               ? "1px solid var(--color-line)"
                               : "none",
                         }}
@@ -519,8 +628,40 @@ export default function AdminDashboardPage() {
                         >
                           {c.createdAt}
                         </td>
+                        <td style={{ padding: "12px 16px", textAlign: "right", whiteSpace: "nowrap" }}>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedCase(c)}
+                            style={{
+                              padding: "6px 16px",
+                              background: "transparent",
+                              border: "1.5px solid var(--color-primary)",
+                              borderRadius: "var(--radius-sm)",
+                              fontSize: "0.8125rem",
+                              fontWeight: 600,
+                              color: "var(--color-primary)",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Ver
+                          </button>
+                        </td>
                       </tr>
                     ))}
+                    {filteredCases.length === 0 && (
+                      <tr>
+                        <td
+                          colSpan={7}
+                          style={{
+                            padding: "32px 16px",
+                            textAlign: "center",
+                            color: "var(--color-muted)",
+                          }}
+                        >
+                          Sin resultados para “{casesSearch}”.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -544,6 +685,136 @@ export default function AdminDashboardPage() {
                 Actualizar bandeja
               </button>
             </div>
+
+            {/* Modal de detalle del caso */}
+            {selectedCase && (
+              <div
+                role="dialog"
+                aria-modal="true"
+                aria-label={`Detalle del caso ${selectedCase.caseNumber}`}
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) setSelectedCase(null);
+                }}
+                style={{
+                  position: "fixed",
+                  inset: 0,
+                  background: "rgba(8, 34, 53, 0.6)",
+                  zIndex: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "24px",
+                }}
+              >
+                <div
+                  style={{
+                    background: "var(--color-surface)",
+                    borderRadius: "var(--radius-lg)",
+                    boxShadow: "0 20px 60px rgba(8,34,53,0.35)",
+                    width: "100%",
+                    maxWidth: "560px",
+                    maxHeight: "90vh",
+                    overflow: "auto",
+                    padding: "28px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      gap: "12px",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontSize: "1.125rem",
+                        fontWeight: 700,
+                        color: "var(--color-primary)",
+                        margin: 0,
+                      }}
+                    >
+                      {selectedCase.caseNumber}
+                    </h3>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCase(null)}
+                      aria-label="Cerrar detalle"
+                      style={{
+                        background: "transparent",
+                        border: "1px solid var(--color-line)",
+                        borderRadius: "var(--radius-sm)",
+                        cursor: "pointer",
+                        padding: "6px 14px",
+                        fontSize: "0.8125rem",
+                        fontWeight: 600,
+                        color: "var(--color-muted)",
+                      }}
+                    >
+                      Cerrar
+                    </button>
+                  </div>
+
+                  <dl style={{ margin: 0, display: "grid", gap: "14px" }}>
+                    {[
+                      ["Nombre", selectedCase.nombre ?? "—"],
+                      ["RUT", selectedCase.rut ?? "—"],
+                      ["Categoría", selectedCase.category],
+                      ["Estado", STATUS_LABELS[selectedCase.status] ?? selectedCase.status],
+                      ["Fecha", selectedCase.createdAt],
+                    ].map(([label, value]) => (
+                      <div key={label}>
+                        <dt
+                          style={{
+                            fontSize: "0.6875rem",
+                            fontWeight: 700,
+                            letterSpacing: "0.06em",
+                            textTransform: "uppercase",
+                            color: "var(--color-muted)",
+                            marginBottom: "2px",
+                          }}
+                        >
+                          {label}
+                        </dt>
+                        <dd style={{ margin: 0, fontSize: "0.9375rem", color: "var(--color-ink)" }}>
+                          {value}
+                        </dd>
+                      </div>
+                    ))}
+                    <div>
+                      <dt
+                        style={{
+                          fontSize: "0.6875rem",
+                          fontWeight: 700,
+                          letterSpacing: "0.06em",
+                          textTransform: "uppercase",
+                          color: "var(--color-muted)",
+                          marginBottom: "4px",
+                        }}
+                      >
+                        Mensaje
+                      </dt>
+                      <dd
+                        style={{
+                          margin: 0,
+                          fontSize: "0.9375rem",
+                          color: "var(--color-ink)",
+                          lineHeight: 1.6,
+                          whiteSpace: "pre-wrap",
+                          background: "var(--color-bg)",
+                          border: "1px solid var(--color-line)",
+                          borderRadius: "var(--radius-sm)",
+                          padding: "14px 16px",
+                        }}
+                      >
+                        {selectedCase.message ?? "—"}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
