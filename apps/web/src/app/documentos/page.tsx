@@ -237,14 +237,15 @@ export default function DocumentosPage() {
                 </div>
               </div>
 
-              {/* Metadata */}
+              {/* Metadata — anclada al fondo, dos líneas fijas para alinear entre tarjetas */}
               <div
                 style={{
+                  marginTop: "auto",
                   display: "flex",
-                  gap: "16px",
+                  flexDirection: "column",
+                  gap: "4px",
                   fontSize: "0.75rem",
                   color: "var(--color-muted)",
-                  flexWrap: "wrap",
                 }}
               >
                 <span>
