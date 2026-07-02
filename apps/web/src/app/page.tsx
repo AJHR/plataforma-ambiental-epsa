@@ -42,7 +42,6 @@ const modules = [
 const stats = [
   { value: "8", label: "Componentes monitoreados" },
   { value: "4", label: "Áreas de influencia" },
-  { value: "Mensual", label: "Actualización de datos" },
   { value: "100%", label: "Datos públicos" },
 ];
 
