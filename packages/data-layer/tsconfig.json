@@ -1,0 +1,10 @@
+{
+  "extends": "@repo/config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"],
+    "lib": ["esnext"]
+  },
+  "include": ["src"]
+}

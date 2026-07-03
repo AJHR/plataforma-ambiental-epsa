@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop]
   push:
-    branches: [main]
+    branches: [main, develop]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,33 +12,30 @@ concurrency:
 
 jobs:
   ci:
-    name: Lint, Typecheck, Test & Build
+    name: Lint, Typecheck, Test, Build & E2E
     runs-on: ubuntu-latest
-
+    # El gate de contraseña del demo se desactiva en CI para que los E2E
+    # naveguen directo (en producción/demo queda activo por defecto).
+    env:
+      NEXT_PUBLIC_DEMO_GATE: "off"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Lint
         run: pnpm lint
-
       - name: Typecheck
         run: pnpm typecheck
-
-      - name: Test
+      - name: Test (unit + contrato)
         run: pnpm test
-
       - name: Build
         run: pnpm build
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - name: E2E + A11y (criterios de éxito)
+        run: pnpm e2e

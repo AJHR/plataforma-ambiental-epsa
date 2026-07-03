@@ -1,0 +1,11 @@
+import { NextResponse } from "next/server";
+import { readJson, jsonError } from "@/lib/dataStore";
+
+export async function GET() {
+  try {
+    const data = await readJson<unknown>("monitoring/components.json");
+    return NextResponse.json({ data });
+  } catch (err) {
+    return jsonError(err);
+  }
+}

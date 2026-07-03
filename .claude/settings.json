@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Edit", "Write", "Read", "Glob", "Grep", "Task",
+      "Bash(pnpm:*)", "Bash(npx:*)", "Bash(node:*)", "Bash(turbo:*)",
+      "Bash(tsx:*)", "Bash(vitest:*)", "Bash(playwright:*)",
+      "Bash(git add:*)", "Bash(git commit:*)", "Bash(git checkout:*)",
+      "Bash(git switch:*)", "Bash(git push:*)", "Bash(git pull:*)",
+      "Bash(git fetch:*)", "Bash(git merge:*)", "Bash(git rebase:*)",
+      "Bash(git branch:*)", "Bash(git status)", "Bash(git log:*)",
+      "Bash(gh pr:*)", "Bash(gh issue:*)", "Bash(gh run:*)", "Bash(gh workflow:*)",
+      "mcp__playwright__*"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)", "Bash(rm -rf ~*)", "Bash(sudo:*)",
+      "Bash(git push --force*)", "Bash(git push -f*)",
+      "Read(./.env)", "Read(./.env.*)", "Read(./**/*.pem)", "Read(./**/*.key)",
+      "Write(./.env)", "Write(./.env.*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["playwright"]
+}

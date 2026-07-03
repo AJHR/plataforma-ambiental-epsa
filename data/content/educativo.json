@@ -1,0 +1,45 @@
+{
+  "key": "educativo",
+  "value": {
+    "capsules": [
+      {
+        "id": "cap-001",
+        "title": "¿Cómo se mide la calidad del aire?",
+        "content": "La calidad del aire se mide mediante estaciones de monitoreo continuo equipadas con analizadores automáticos que capturan en tiempo real la concentración de contaminantes como el material particulado (MP10 y MP2.5), dióxido de nitrógeno (NO2), dióxido de azufre (SO2), monóxido de carbono (CO) y ozono (O3). Estos instrumentos toman muestras del aire ambiente y utilizan técnicas como la atenuación de rayos beta o la microbalanza oscilante para determinar la masa de partículas. Los datos se promedian en períodos horarios y diarios para su comparación con las normas de calidad del aire vigentes en Chile. En el Proyecto EPSA se operan tres estaciones estratégicamente ubicadas para representar la variabilidad espacial en el área de influencia.",
+        "category": "Calidad del Aire",
+        "imageAlt": "Estación de monitoreo de calidad del aire en terreno"
+      },
+      {
+        "id": "cap-002",
+        "title": "El ciclo del agua y los proyectos industriales",
+        "content": "El ciclo hidrológico describe el movimiento continuo del agua entre la atmósfera, la superficie terrestre y el subsuelo. Los proyectos industriales pueden interactuar con este ciclo en distintos puntos: captando agua desde napas subterráneas o ríos, generando aguas residuales que deben tratarse antes de devolverse al ambiente, y modificando la escorrentía superficial al impermeabilizar suelos. En EPSA, el programa de monitoreo hídrico (SMC-CCH) evalúa semestralmente la calidad del agua en puntos aguas arriba y aguas abajo de las actividades del proyecto, además de dos pozos de monitoreo de napa freática, para detectar oportunamente cualquier alteración en la calidad hídrica.",
+        "category": "Calidad Hídrica",
+        "imageAlt": "Toma de muestra de agua en cauce natural"
+      },
+      {
+        "id": "cap-003",
+        "title": "Biodiversidad: ¿por qué monitoreamos fauna y flora?",
+        "content": "La biodiversidad es la variedad de formas de vida en un ecosistema, incluyendo todas las especies vegetales, animales, hongos y microorganismos, así como los procesos ecológicos que los conectan. Monitorear la fauna y la flora en torno a proyectos industriales es fundamental porque estos organismos son excelentes indicadores del estado de salud del ecosistema: si hay cambios en la composición de especies, en la abundancia de poblaciones o en el estado fitosanitario de la vegetación, pueden ser señales tempranas de impactos no anticipados. En EPSA, los monitoreos estacionales de vegetación (SMC-CV) y fauna (SMC-CF) permiten identificar con anticipación cualquier efecto sobre especies en categoría de conservación y activar medidas de manejo oportunas.",
+        "category": "Biodiversidad",
+        "imageAlt": "Investigador en terreno registrando especies de fauna"
+      },
+      {
+        "id": "cap-004",
+        "title": "¿Qué es el ruido ambiental y cómo afecta a las comunidades?",
+        "content": "El ruido ambiental es el conjunto de sonidos no deseados que se perciben en un entorno determinado, generados por actividades humanas como el tráfico vehicular, la maquinaria industrial o la construcción. A diferencia de otros contaminantes, el ruido no se acumula en el ambiente, pero sus efectos sobre la salud humana pueden ser significativos: interfiere con el sueño, dificulta la comunicación oral, genera estrés y puede producir pérdida auditiva temporal o permanente con exposiciones prolongadas. En Chile, el DS 38/2011 del Ministerio del Medio Ambiente establece los límites máximos permisibles de ruido para receptores sensibles como viviendas, escuelas y hospitales. El Proyecto EPSA monitorea mensualmente tres puntos receptores identificados en la comunidad.",
+        "category": "Ruido y Vibraciones",
+        "imageAlt": "Sonómetro midiendo nivel de ruido en área residencial"
+      },
+      {
+        "id": "cap-005",
+        "title": "Participación ciudadana en el monitoreo ambiental",
+        "content": "La participación de la comunidad en el seguimiento ambiental de proyectos industriales es un derecho reconocido por la Ley N°19.300 y un factor clave para garantizar la legitimidad de los procesos de monitoreo. La ciudadanía puede contribuir de diversas formas: reportando situaciones ambientales anómalas a través de plataformas como esta, participando en instancias de diálogo convocadas por el titular del proyecto o la autoridad ambiental, integrando comités de seguimiento ciudadano, y ejerciendo su derecho a acceder a la información ambiental pública. En esta plataforma puedes consultar los resultados de cada campaña de monitoreo, descargar informes y enviar tus consultas o reportes directamente al equipo ambiental de EPSA.",
+        "category": "Participacion Ciudadana",
+        "imageAlt": "Reunión de diálogo entre empresa y comunidad"
+      }
+    ]
+  },
+  "status": "publicado",
+  "updatedAt": "2026-06-10T11:00:00.000Z",
+  "updatedBy": "editor@epsa.cl"
+}

@@ -8,9 +8,12 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "test": "turbo test"
+    "test": "turbo test",
+    "e2e": "playwright test",
+    "a11y": "echo \"[a11y] axe se integra dentro de los specs de Playwright (WS10).\" && exit 0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.0",
     "turbo": "latest"
   }
 }

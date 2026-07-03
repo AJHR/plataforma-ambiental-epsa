@@ -1,0 +1,39 @@
+/* Design tokens — Plataforma Ambiental EPSA (espejo legacy).
+   FUENTE DE VERDAD: packages/config/theme.css (Tailwind v4 @theme).
+   Este archivo se mantiene para imports CSS directos sin Tailwind; sus valores
+   DEBEN coincidir con theme.css. Sistema "marítimo-tech": azul puerto + azul claro. */
+:root {
+  /* Marca (azul portuario moderno) */
+  --color-primary: #0e5c8a;
+  --color-primary-600: #1577b0;
+  --color-accent: #38b6e8;
+  --color-accent-700: #0e6fa8;
+  --color-accent-foreground: #07293b;
+  --color-eco: #1597b8;
+  --color-cta: #e0742e;
+
+  /* Semáforo ambiental (estilo SINCA) */
+  --sema-ok: #2e8b57;
+  --sema-warn: #b8860b;
+  --sema-bad: #c0392b;
+
+  /* Neutrales fríos / marinos */
+  --color-ink: #122a38;
+  --color-muted: #5a6b78;
+  --color-line: #d6e2ea;
+  --color-surface: #ffffff;
+  --color-bg: #f1f6f9;
+  --color-bg-deep: #082235;
+
+  /* Radios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Espaciado base 4px: usar múltiplos (4,8,12,16,24,32,48,64) */
+  --space-unit: 4px;
+
+  /* Sombra de tarjeta */
+  --shadow-card: 0 2px 8px rgba(20, 36, 27, 0.08);
+}

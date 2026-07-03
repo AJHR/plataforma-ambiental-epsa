@@ -1,0 +1,79 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Design tokens — Plataforma Ambiental EPSA
+   Fuente de verdad del sistema de diseño "marítimo-tech": azul puerto profundo
+   + azul claro moderno como acento + neutros fríos. Identidad portuaria.
+
+   Tailwind v4 (@theme) emite, para cada token:
+     1. utilidades  → bg-primary, text-ink, rounded-md, shadow-card, font-sans…
+     2. CSS vars    → var(--color-primary), var(--radius-md), …  (retro-compat
+        con los estilos inline existentes de las páginas actuales).
+
+   Cambiar la marca = editar SOLO este archivo; los componentes no se tocan.
+   Prohibido hex mágicos en componentes.
+
+   Contraste verificado WCAG AA (texto ≥ 4.5:1, UI ≥ 3:1):
+     - texto ink (#122A38) sobre surface/bg    → ~13:1
+     - texto muted (#5A6B78) sobre surface     → ~5.2:1
+     - blanco sobre primary (#0E5C8A)          → ~7:1
+     - accent-foreground sobre accent (#38B6E8)→ ~6.7:1  (NO usar blanco)
+     - accent-700 (#0E6FA8) como texto/links   → ~5.5:1
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Marca (azul portuario moderno) ── */
+  --color-primary: #0e5c8a;        /* azul puerto profundo */
+  --color-primary-600: #1577b0;    /* hover / degradados */
+  --color-accent: #38b6e8;         /* azul claro moderno (fondo → usar foreground oscuro) */
+  --color-accent-700: #0e6fa8;     /* acento como texto/links sobre claro (AA) */
+  --color-accent-foreground: #07293b; /* texto sobre fondos accent */
+  --color-eco: #1597b8;            /* turquesa marino secundario */
+  --color-cta: #e0742e;            /* naranja cálido — segundo acento (contraste náutico) */
+
+  /* ── Semáforo ambiental (estilo SINCA) ── */
+  --color-sema-ok: #2e8b57;
+  --color-sema-warn: #b8860b;      /* oscurecido para AA sobre claro */
+  --color-sema-bad: #c0392b;
+
+  /* ── Neutrales fríos / marinos ── */
+  --color-ink: #122a38;            /* texto principal (azul-grafito frío) */
+  --color-muted: #5a6b78;          /* texto secundario */
+  --color-line: #d6e2ea;           /* bordes / divisores */
+  --color-surface: #ffffff;        /* tarjetas */
+  --color-bg: #f1f6f9;             /* fondo de página (azul-gris muy claro) */
+  --color-bg-deep: #082235;        /* footer / fin de degradado hero (navy) */
+
+  /* ── Tipografía ── */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Escala tipográfica (serena, jerárquica) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+  --text-5xl: 3.75rem;
+
+  /* ── Radios ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* ── Sombras sutiles ── */
+  --shadow-card: 0 2px 8px rgba(20, 36, 27, 0.08);
+  --shadow-lg: 0 12px 32px rgba(20, 36, 27, 0.12);
+}
+
+/* Alias retro-compatibles con los nombres de variable usados por las páginas
+   actuales (estilos inline). El re-skin se propaga sin tocar esas páginas. */
+:root {
+  --sema-ok: var(--color-sema-ok);
+  --sema-warn: var(--color-sema-warn);
+  --sema-bad: var(--color-sema-bad);
+  --space-unit: 4px;
+}

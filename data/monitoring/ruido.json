@@ -1,0 +1,77 @@
+{
+  "componentCode": "ruido",
+  "points": [
+    {
+      "date": "2026-04-10",
+      "value": 52.23,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-04-17",
+      "value": 64.7,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-04-24",
+      "value": 68.82,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-05-01",
+      "value": 55.28,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-05-08",
+      "value": 54.65,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-05-15",
+      "value": 68.35,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-05-22",
+      "value": 65.45,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-05-29",
+      "value": 52.5,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-06-05",
+      "value": 62.4,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-06-12",
+      "value": 73.74,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-06-19",
+      "value": 64.58,
+      "unit": "dB(A)",
+      "threshold": 65
+    },
+    {
+      "date": "2026-06-26",
+      "value": 55.6,
+      "unit": "dB(A)",
+      "threshold": 65
+    }
+  ]
+}

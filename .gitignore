@@ -30,3 +30,29 @@ pnpm-debug.log*
 # TypeScript
 *.tsbuildinfo
 apps/web/next-env.d.ts
+
+# data/ runtime (no versionar datos escritos en producción; sí la estructura)
+data/**/*.json
+data/**/*.jsonl
+data/**/*.pdf
+!data/**/.gitkeep
+!data/README.md
+
+# Seed data versionado: datos de referencia y estados iniciales para que
+# la app y los tests funcionen out-of-the-box en clones nuevos y CI.
+!data/monitoring/*.json
+!data/content/*.json
+!data/documents/meta.json
+!data/newsletter/bulletins.json
+!data/users/users.json
+!data/cases/cases.json
+!data/cases/counter.json
+!data/newsletter/subscribers.json
+!data/compromisos/*.json
+
+# Autonomous run / Playwright
+logs/
+!logs/.gitkeep
+.mvp_status
+playwright-report/
+test-results/

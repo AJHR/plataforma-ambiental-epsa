@@ -1,0 +1,43 @@
+@import "tailwindcss";
+@import "@repo/config/theme.css";
+
+/* ── Base ──────────────────────────────────────────────────────────────────
+   Tailwind v4 ya incluye su reset (preflight) en @layer base. NO duplicamos un
+   reset universal sin capa: las reglas sin capa ganan a las utilidades de
+   Tailwind (@layer utilities) y romperían clases como `mx-auto` o `px-*`.
+   Nuestros estilos base van dentro de @layer base para que las utilidades
+   siempre puedan sobreescribirlos.
+   Los design tokens viven en @repo/config/theme.css (fuente de verdad). */
+
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Foco visible accesible (WCAG AA — navegable por teclado) */
+  :focus-visible {
+    outline: 3px solid var(--color-accent-700);
+    outline-offset: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+}
