@@ -3,7 +3,14 @@
 
 > Documento de referencia técnica. Resume las tecnologías empleadas, la
 > justificación de cada elección (madurez, robustez y vigencia) y el detalle de
-> la arquitectura. Pensado como insumo para elaborar una propuesta.
+> la arquitectura, incluyendo un **esquema productivo** basado en base de datos
+> **relacional** y nube de nivel empresarial (**AWS / Google Cloud / Azure**).
+> Pensado como insumo para elaborar una propuesta.
+>
+> **Nota:** el ambiente de **demostración** actual está montado sobre una
+> plataforma serverless (Vercel) con almacenamiento clave-valor solo para efectos
+> de la demo; **no** representa el esquema productivo recomendado, que se describe
+> en la sección 2.5 y 2.6.
 
 ---
 
@@ -16,11 +23,11 @@ documentos públicos, un mecanismo de participación ciudadana (MIAQR — consul
 quejas y reclamos) y un módulo educativo.
 
 Está construida sobre un stack **JavaScript/TypeScript de última generación**
-(Next.js 16 + React 19), desplegada en una arquitectura **serverless** sobre
-Vercel, con persistencia en **Redis administrado** (Upstash / Vercel KV). El
-código está organizado como **monorepo** para escalar de forma ordenada y con una
-**batería de pruebas automatizadas** (unitarias, de contrato y end-to-end) que
-corren en integración continua.
+(Next.js 16 + React 19). Para producción se propone una arquitectura con **base de
+datos relacional (PostgreSQL)** y despliegue en una **nube de nivel empresarial**
+(AWS, Google Cloud o Azure, indistintamente), con una **batería de pruebas
+automatizadas** (unitarias, de contrato y end-to-end) ejecutadas en integración
+continua.
 
 ---
 
@@ -29,78 +36,113 @@ corren en integración continua.
 ### 2.1 Lenguaje: TypeScript (strict)
 
 - **Versión:** TypeScript 6.x, modo `strict`, prohibición explícita de `any`.
-- **Por qué:** TypeScript es hoy el estándar de facto para aplicaciones web
-  serias. El tipado estático detecta errores en tiempo de compilación (antes de
-  producción), documenta el código y habilita refactors seguros. El modo estricto
-  eleva la garantía de calidad y reduce defectos en runtime.
+- **Por qué:** es el estándar de facto para aplicaciones web serias. El tipado
+  estático detecta errores en tiempo de compilación (antes de producción),
+  documenta el código y habilita refactors seguros. El modo estricto eleva la
+  garantía de calidad y reduce defectos en runtime.
 
 ### 2.2 Framework de aplicación: Next.js 16 (App Router) + React 19
 
-- **Por qué Next.js:** es el framework React líder del mercado, mantenido por
-  Vercel y respaldado por una comunidad enorme. Ofrece en un solo marco:
-  renderizado en servidor (SSR), generación estática (SSG), **React Server
-  Components**, y **API Routes** (backend integrado) — sin necesidad de un
-  servidor separado para la mayoría de los casos.
+- **Por qué Next.js:** es el framework React líder del mercado, con una comunidad
+  enorme y soporte activo. Ofrece en un solo marco: renderizado en servidor (SSR),
+  generación estática (SSG), **React Server Components** y una capa de **API/BFF**
+  integrada.
 - **App Router + Server Components:** el contenido se renderiza por defecto en el
   servidor, lo que mejora el rendimiento percibido, el SEO y la seguridad (menos
   lógica y menos datos expuestos en el cliente).
-- **Robustez/vigencia:** Next.js es usado por empresas de primer nivel; React 19
-  es la versión estable más reciente. Es una apuesta tecnológica **actual y con
-  soporte de largo plazo**, no una tecnología de nicho.
+- **Portabilidad:** Next.js puede desplegarse como aplicación Node en cualquier
+  nube (contenedores o servicios gestionados), no queda atado a un proveedor.
+- **Robustez/vigencia:** usado por empresas de primer nivel; React 19 es la versión
+  estable más reciente. Es una apuesta tecnológica **actual y con soporte de largo
+  plazo**, no una tecnología de nicho.
 
 ### 2.3 Estilos: Tailwind CSS v4
 
-- **Por qué:** Tailwind es el sistema de estilos utilitario más adoptado de la
-  industria. Permite construir interfaces consistentes y responsivas rápidamente,
-  con un **sistema de design tokens** centralizado (colores, tipografía, radios,
-  sombras) que garantiza coherencia visual y accesibilidad (contraste AA).
-- **v4:** la versión más reciente, con mejor rendimiento de compilación y
-  configuración basada en CSS.
+- **Por qué:** el sistema de estilos utilitario más adoptado de la industria.
+  Permite construir interfaces consistentes y responsivas con un **sistema de
+  design tokens** centralizado (colores, tipografía, radios, sombras) que
+  garantiza coherencia visual y accesibilidad (contraste AA).
 
-### 2.4 Backend / API: Next.js API Routes (serverless)
+### 2.4 Backend / API
 
-- **Por qué:** las rutas API viven dentro del mismo proyecto Next.js y se
-  despliegan como **funciones serverless**. Esto elimina la operación de un
-  servidor dedicado, escala automáticamente según demanda y reduce costos
-  (se paga por uso). Cubre autenticación de administración, ingreso de reclamos,
+- **Modelo:** la lógica de servidor se expone como endpoints HTTP (API/BFF)
+  cercanos a la aplicación: autenticación de administración, ingreso de reclamos,
   suscripción a boletines, series de monitoreo y gestión de documentos.
-- **Fastify (apps/api):** el repositorio incluye además un servicio Fastify (Node)
-  como base para una API independiente si en el futuro se requiere separar el
-  backend. Fastify es uno de los frameworks Node más rápidos y robustos. Hoy la
-  web es autosuficiente con sus API Routes.
+- **Framework Node (Fastify) para backend dedicado:** el repositorio incluye un
+  servicio **Fastify** (`apps/api`) como base para un backend independiente cuando
+  se requiera separar responsabilidades (integraciones, colas, terceros). Fastify
+  es uno de los frameworks Node más rápidos y robustos, apto para contenedores en
+  cualquier nube.
 
-### 2.5 Persistencia: Redis administrado (Upstash / Vercel KV)
+### 2.5 Persistencia: base de datos relacional (PostgreSQL) — esquema productivo
 
-- **Por qué:** en producción serverless el sistema de archivos es efímero y de
-  solo lectura, por lo que los datos que cambian (reclamos, suscriptores,
-  contadores, metadatos de documentos) se guardan en **Redis administrado**.
-  Upstash es un Redis serverless (pago por uso, sin servidores que administrar) y
-  se integra nativamente con Vercel.
-- **Diseño híbrido:** la capa de acceso a datos (`dataStore`) lee primero de
-  Redis y, si una clave aún no existe, entrega el **dato semilla** empaquetado con
-  la aplicación; las escrituras persisten en Redis. En desarrollo local, sin
-  credenciales, usa el sistema de archivos — de modo que el equipo trabaja sin
-  depender de infraestructura externa.
-- **Escalabilidad futura:** el contrato de datos está aislado en un paquete de
-  tipos, lo que permite migrar a **PostgreSQL** (p. ej. Neon/Supabase/Vercel
-  Postgres) sin reescribir la interfaz de usuario cuando el volumen o la
-  complejidad relacional lo ameriten.
+- **Recomendación productiva: PostgreSQL.** Es la base de datos relacional
+  open-source más robusta y adoptada del mercado: soporte transaccional ACID,
+  integridad referencial, consultas complejas, extensiones (p. ej. **PostGIS**
+  para datos geoespaciales, muy pertinente para información ambiental por áreas de
+  influencia), y disponibilidad como **servicio gestionado en las tres nubes
+  principales**:
 
-### 2.6 Infraestructura y despliegue: Vercel
+  | Nube | Servicio gestionado PostgreSQL |
+  | --- | --- |
+  | **AWS** | Amazon RDS for PostgreSQL / Amazon Aurora PostgreSQL |
+  | **Google Cloud** | Cloud SQL for PostgreSQL / AlloyDB |
+  | **Azure** | Azure Database for PostgreSQL (Flexible Server) |
 
-- **Por qué:** Vercel es la plataforma creadora de Next.js; el despliegue es
-  **continuo desde Git** (cada push publica), con **HTTPS/SSL automático**, CDN
-  global, previews por rama y escalado serverless sin configuración de
-  servidores. Reduce a mínimos el costo operativo y el tiempo de puesta en
-  producción.
+  Estos servicios entregan **backups automáticos, alta disponibilidad
+  (multi-AZ/replicación), cifrado en reposo y tránsito, y escalado vertical/
+  lecturas replicadas** sin administrar servidores de base de datos.
+
+- **Acceso a datos desacoplado:** el proyecto aísla el **contrato de datos** en un
+  paquete de tipos y una capa de acceso (`data-layer`) que contempla implementación
+  **file/postgres**. Esto permite conectar PostgreSQL en producción sin reescribir
+  la interfaz de usuario ni la lógica de negocio.
+- **ORM/consulta recomendado:** una capa como **Prisma** o **Drizzle** (TypeScript)
+  para migraciones versionadas, tipado end-to-end y consultas seguras.
+- **Caché (opcional):** un almacén clave-valor tipo **Redis** puede sumarse como
+  **caché** o para sesiones/colas, no como base de datos principal (ElastiCache en
+  AWS, Memorystore en Google, Azure Cache for Redis).
+
+> El demo utiliza un almacén clave-valor solo por simplicidad de montaje; el
+> esquema productivo es **PostgreSQL gestionado**.
+
+### 2.6 Infraestructura y despliegue — esquema productivo en nube
+
+La aplicación es **portable** y puede desplegarse en cualquiera de las tres nubes
+principales, con dos patrones equivalentes:
+
+**A. Contenedores (recomendado para portabilidad):** empaquetar la app Next.js y
+el backend Fastify en imágenes **Docker** y ejecutarlas en un servicio gestionado
+de contenedores:
+
+| Nube | Cómputo (contenedores) | Estáticos / CDN | Almacenamiento de archivos |
+| --- | --- | --- | --- |
+| **AWS** | ECS Fargate / EKS / App Runner | CloudFront + S3 | Amazon S3 |
+| **Google Cloud** | Cloud Run / GKE | Cloud CDN + Cloud Storage | Cloud Storage |
+| **Azure** | Container Apps / AKS | Azure CDN + Blob Storage | Azure Blob Storage |
+
+**B. Serverless / gestionado:** funciones o app services (AWS Lambda + API
+Gateway/Amplify, Google Cloud Run, Azure App Service/Functions) para escalado
+automático y pago por uso.
+
+**Elementos transversales de producción (equivalentes en las tres nubes):**
+
+- **CDN + HTTPS/TLS** gestionado y certificados automáticos.
+- **Balanceo de carga** y **auto-scaling** por demanda.
+- **Almacenamiento de objetos** (S3 / Cloud Storage / Blob) para documentos PDF.
+- **Secret manager** (AWS Secrets Manager, Google Secret Manager, Azure Key Vault)
+  para credenciales.
+- **Observabilidad** (CloudWatch / Cloud Monitoring / Azure Monitor) y trazas de
+  errores (p. ej. Sentry).
+- **Infraestructura como código** (Terraform) para reproducibilidad entre
+  ambientes (dev/staging/producción).
 
 ### 2.7 Monorepo: pnpm workspaces + Turborepo
 
 - **Por qué:** el proyecto se organiza como monorepo con **pnpm** (gestor de
   paquetes rápido y eficiente en disco) y **Turborepo** (orquestador de tareas con
-  caché). Esto permite compartir código (tipos, componentes de UI, configuración)
-  entre aplicaciones, mantener un único origen de verdad y builds incrementales
-  veloces.
+  caché). Permite compartir código (tipos, componentes de UI, configuración) entre
+  aplicaciones, mantener un único origen de verdad y builds incrementales veloces.
 
 ### 2.8 Calidad y pruebas
 
@@ -110,7 +152,8 @@ corren en integración continua.
 - **ESLint** — análisis estático y estilo de código.
 - **Integración continua (GitHub Actions):** en cada Pull Request se ejecuta
   lint + typecheck + tests + build + E2E. Nada llega a producción sin pasar la
-  batería completa.
+  batería completa. Es portable a cualquier CI (GitLab CI, Azure Pipelines, AWS
+  CodePipeline, Google Cloud Build).
 - **Convenciones:** Conventional Commits, revisión por PR, y tests obligatorios
   para toda funcionalidad nueva.
 
@@ -122,40 +165,51 @@ corren en integración continua.
 | UI / Framework | Next.js (App Router) + React | 16.x / 19.x | Renderizado, ruteo, Server Components |
 | Estilos | Tailwind CSS | 4.x | Design system y responsividad |
 | Iconografía | lucide-react | 0.545 | Íconos SVG accesibles |
-| Backend | Next.js API Routes (serverless) | — | Endpoints de la aplicación |
-| API alternativa | Fastify (Node) | 5.x | Servicio backend independiente (base) |
-| Persistencia | Upstash Redis / Vercel KV | — | Datos mutables en producción |
-| Infra / Deploy | Vercel | — | Serverless, CDN, SSL, CI/CD |
+| Backend | API/BFF (Next.js) + Fastify (Node) | 5.x | Endpoints de la aplicación / backend dedicado |
+| **Base de datos** | **PostgreSQL (gestionado)** | 15+ | **Persistencia relacional productiva** |
+| Acceso a datos | Prisma / Drizzle (recomendado) | — | ORM, migraciones, tipado |
+| Almacenamiento archivos | S3 / Cloud Storage / Blob | — | Documentos PDF |
+| Nube | AWS / Google Cloud / Azure | — | Cómputo, CDN, TLS, escalado |
+| Contenedores | Docker | — | Portabilidad entre nubes |
 | Monorepo | pnpm + Turborepo | pnpm 10.x | Gestión y orquestación de paquetes |
 | Pruebas | Vitest + Playwright (axe) | 4.x / 1.x | Unitarias, contrato, E2E, a11y |
-| CI | GitHub Actions | — | Lint, typecheck, test, build, E2E |
+| CI/CD | GitHub Actions (portable) | — | Lint, typecheck, test, build, E2E |
+| IaC | Terraform (recomendado) | — | Infraestructura reproducible |
 
 ---
 
 ## 3. Arquitectura del sitio
 
-### 3.1 Vista general
+### 3.1 Vista general (esquema productivo)
 
 ```
-┌───────────────────────────────────────────────────────────────┐
-│                          Vercel (Edge/CDN)                       │
-│                                                                  │
-│   ┌───────────────────────── apps/web (Next.js 16) ──────────┐  │
-│   │                                                            │  │
-│   │  React Server Components  ── Páginas públicas             │  │
-│   │  Client Components        ── Formularios, filtros, modales │  │
-│   │                                                            │  │
-│   │  API Routes (serverless)  ── /api/*  (backend integrado)   │  │
-│   │        │                                                   │  │
-│   │        ▼                                                   │  │
-│   │  Capa de datos (dataStore) ──► Redis (Upstash/Vercel KV)   │  │
-│   │        │                                                   │  │
-│   │        └─ fallback ──► datos semilla (data/*.json)         │  │
-│   └────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────┘
-        ▲                                   ▲
-        │ push a Git                        │ dominio propio + SSL
-   GitHub + CI (Actions)              usuario final (navegador)
+                 Usuarios (navegador)
+                        │  HTTPS
+                        ▼
+              ┌───────────────────┐
+              │  CDN + TLS/WAF     │   (CloudFront / Cloud CDN / Azure CDN)
+              └─────────┬─────────┘
+                        ▼
+        ┌───────────────────────────────┐
+        │  Cómputo (contenedores/serverless)   │
+        │                                │
+        │   Next.js (SSR/RSC + API/BFF)  │
+        │   Fastify (backend dedicado)*  │
+        └───────┬───────────────┬────────┘
+                │               │
+                ▼               ▼
+     ┌────────────────┐  ┌───────────────────┐
+     │  PostgreSQL     │  │  Almacenamiento    │
+     │  (gestionado)   │  │  de objetos (PDF)  │
+     │  RDS/CloudSQL/  │  │  S3/GCS/Blob       │
+     │  Azure DB       │  └───────────────────┘
+     └────────────────┘
+       (+ Redis opcional como caché)
+
+  * backend dedicado opcional según necesidad de integraciones.
+
+  CI/CD:  GitHub (repos + Actions) ──build/test──► registro de imágenes ──► nube
+  IaC:    Terraform describe todos los recursos por ambiente (dev/staging/prod)
 ```
 
 ### 3.2 Estructura del monorepo
@@ -163,8 +217,8 @@ corren en integración continua.
 ```
 plataforma-ambiental-epsa/
 ├── apps/
-│   ├── web/        → Aplicación Next.js (frontend + API Routes). Se despliega.
-│   └── api/        → Servicio Fastify (base para backend independiente futuro).
+│   ├── web/        → Aplicación Next.js (frontend + API/BFF). Se despliega.
+│   └── api/        → Servicio Fastify (backend independiente para producción).
 ├── packages/
 │   ├── types/      → Contrato de tipos compartido (fuente de verdad de la API).
 │   ├── ui/         → Design system: componentes y tokens de estilo.
@@ -172,10 +226,9 @@ plataforma-ambiental-epsa/
 │   ├── content/    → Contenido/estructuras de datos de dominio.
 │   ├── data-layer/ → Contratos de acceso a datos (file/postgres) y esquema.
 │   └── assistant/  → Módulo de apoyo (utilidades).
-├── data/           → Datos semilla versionados (JSON): compromisos, monitoreo,
-│                     documentos, contenido, boletines, casos.
+├── data/           → Datos semilla versionados (JSON) para bootstrap/migración.
 ├── e2e/            → Pruebas end-to-end (Playwright).
-└── docs/           → Documentación (despliegue, arquitectura, créditos).
+└── docs/           → Documentación (arquitectura, despliegue, créditos).
 ```
 
 ### 3.3 Módulos funcionales (páginas públicas)
@@ -193,7 +246,8 @@ plataforma-ambiental-epsa/
 
 ### 3.4 Capa de API (endpoints principales)
 
-Backend integrado como funciones serverless (`apps/web/src/app/api/**`):
+Backend integrado como capa API/BFF (`apps/web/src/app/api/**`), portable a un
+servicio Fastify dedicado:
 
 - **Participación (MIAQR):** `POST /api/cases` (ingreso), `GET /api/cases`
   (bandeja), `GET /api/cases/[number]` (consulta por número).
@@ -206,36 +260,39 @@ Backend integrado como funciones serverless (`apps/web/src/app/api/**`):
 - **Contenido:** `GET /api/content/[key]`.
 - **Administración:** `POST /api/admin/login`, carga de monitoreos.
 
-### 3.5 Capa de datos (`dataStore`)
+### 3.5 Modelo de datos (relacional)
 
-Acceso centralizado y con dos modos según entorno:
+El dominio se traduce naturalmente a un modelo relacional en PostgreSQL. Entidades
+principales:
 
-1. **Producción (Vercel + Redis):** lecturas consultan Redis; si la clave no
-   existe, devuelven el dato semilla empaquetado; las escrituras persisten en
-   Redis. Filesystem de solo lectura ⇒ toda mutación va a Redis.
-2. **Desarrollo/tests (sin credenciales):** lectura/escritura atómica en el
-   sistema de archivos (`data/*.json`).
+- **casos_miaqr** (nº de caso, nombre, RUT, categoría, mensaje, estado, fecha).
+- **suscriptores** (correo, estado, fecha de alta/baja).
+- **documentos** (metadatos: título, archivo, tamaño, versión, estado) + objeto
+  binario en almacenamiento de objetos.
+- **monitoreo** (componente, serie temporal de mediciones, frecuencia, área).
+- **compromisos** (código, tipo, componente, descripción, fase, frecuencia).
+- **contenido** (claves de contenido editorial) y **boletines**.
 
-Ventaja: el mismo código funciona en local y en la nube, y el contrato de datos
-queda desacoplado de la implementación de almacenamiento (permite migrar a
-PostgreSQL sin tocar la UI).
+La capa `data-layer` ya define el contrato file/postgres; con un ORM (Prisma/
+Drizzle) se agregan **migraciones versionadas** y tipado extremo a extremo.
 
 ### 3.6 Seguridad y acceso
 
-- **Gate de acceso al demo:** clave estática configurable por entorno
-  (`NEXT_PUBLIC_DEMO_PASSWORD`), desactivable en CI. Restringe el acceso durante
-  la fase de demostración.
-- **Administración:** panel `/admin` con autenticación por token; los endpoints de
-  escritura administrativa verifican el token.
-- **HTTPS/SSL:** gestionado automáticamente por Vercel para el dominio propio.
+- **Autenticación de administración:** panel `/admin` con autenticación por token;
+  los endpoints de escritura administrativa verifican el token. En producción se
+  recomienda **OIDC/OAuth 2.0** (proveedor corporativo o Cognito/Identity Platform/
+  Entra ID según nube).
+- **HTTPS/TLS + WAF:** cifrado en tránsito y firewall de aplicación en el borde.
+- **Cifrado en reposo:** base de datos y almacenamiento de objetos cifrados.
+- **Secretos:** gestionados en un secret manager, nunca en el código.
 - **Validación de entrada:** las rutas API validan tipos y campos requeridos
   (por ejemplo, RUT con dígito verificador en el ingreso de reclamos).
 
 ### 3.7 Accesibilidad y rendimiento
 
 - Diseño responsivo (móvil y escritorio) con design tokens y contraste **WCAG AA**.
-- Server Components y optimización de imágenes de Next.js para tiempos de carga
-  bajos; entrega vía CDN global de Vercel.
+- Server Components y optimización de imágenes para tiempos de carga bajos;
+  entrega vía **CDN**.
 - Pruebas de accesibilidad automatizadas (axe) dentro de la suite E2E.
 
 ---
@@ -243,27 +300,29 @@ PostgreSQL sin tocar la UI).
 ## 4. Flujo de desarrollo y operación
 
 1. **Desarrollo:** ramas de trabajo → Pull Request a `develop`.
-2. **Integración continua:** GitHub Actions ejecuta lint + typecheck + tests +
+2. **Integración continua:** el pipeline de CI ejecuta lint + typecheck + tests +
    build + E2E en cada PR. No se integra nada en rojo.
-3. **Despliegue:** al llegar el código a la rama de producción, Vercel construye y
-   publica automáticamente (con preview por rama antes de producción).
-4. **Datos:** los datos semilla viajan versionados; los datos vivos residen en
-   Redis administrado.
+3. **Entrega continua (CD):** al aprobar, se construyen imágenes de contenedor y se
+   despliega a los ambientes (staging → producción), idealmente con aprobación
+   manual para producción.
+4. **Ambientes:** dev / staging / producción reproducibles vía Terraform.
 
 ---
 
-## 5. Consideraciones de escalabilidad y evolución
+## 5. Escalabilidad y evolución
 
-- **Base de datos relacional:** migración a PostgreSQL (Neon/Supabase/Vercel
-  Postgres) cuando se requieran relaciones complejas, reportería o mayor volumen.
-  El `data-layer` ya contempla el contrato file/postgres.
-- **Almacenamiento de archivos:** los binarios (PDF) deben migrarse a un blob
-  store (p. ej. **Vercel Blob** o S3) para persistencia en producción; los
-  metadatos ya persisten en Redis.
-- **Backend dedicado:** el servicio Fastify (`apps/api`) permite separar el
-  backend si crecen las integraciones (autenticación robusta, colas, terceros).
-- **Observabilidad:** Vercel Analytics/Logs e integración de monitoreo de errores
-  (p. ej. Sentry) como siguiente paso.
+- **Base de datos:** PostgreSQL gestionado con réplicas de lectura y, de requerirse,
+  particionamiento/escalado (Aurora/AlloyDB) para grandes volúmenes de series de
+  monitoreo. **PostGIS** habilita análisis geoespacial de áreas de influencia.
+- **Archivos:** documentos en almacenamiento de objetos (S3/GCS/Blob) servidos por
+  CDN.
+- **Backend dedicado:** el servicio Fastify permite separar el backend cuando
+  crezcan las integraciones (autenticación robusta, colas, servicios de terceros,
+  ETL de datos de monitoreo).
+- **Multi-nube / portabilidad:** al empaquetar en contenedores y usar Terraform, la
+  solución no queda atada a un proveedor y puede licitarse/migrarse entre AWS,
+  Google Cloud o Azure.
+- **Observabilidad:** métricas, logs y trazas centralizadas + alertamiento.
 
 ---
 
@@ -272,14 +331,16 @@ PostgreSQL sin tocar la UI).
 - **Tecnologías de punta y vigentes:** Next.js 16, React 19, TypeScript 6 y
   Tailwind 4 son las versiones más recientes y ampliamente adoptadas de un
   ecosistema líder — no tecnologías experimentales ni de nicho.
+- **Base de datos robusta y estándar:** PostgreSQL, relacional, ACID, con soporte
+  gestionado en AWS, Google Cloud y Azure, y capacidades geoespaciales (PostGIS).
+- **Sin dependencia de un único proveedor:** aplicación portable (contenedores +
+  IaC), desplegable en cualquiera de las tres nubes principales.
 - **Robustez comprobada:** herramientas usadas por empresas de primer nivel a
   escala global, con soporte activo y comunidad masiva.
-- **Bajo costo operativo:** arquitectura serverless (pago por uso), sin
-  administración de servidores, con CDN y SSL incluidos.
 - **Calidad asegurada:** tipado estricto + pruebas automatizadas (unitarias, de
   contrato, E2E y accesibilidad) en integración continua.
-- **Escalable y evolutiva:** el diseño en monorepo y la separación de contratos
-  de datos permiten crecer (base relacional, blob storage, backend dedicado) sin
-  reescribir la aplicación.
-- **Rápido time-to-market:** despliegue continuo desde Git y previews por rama
-  aceleran la entrega y la validación con la contraparte.
+- **Escalable y evolutiva:** monorepo y separación de contratos de datos permiten
+  crecer (réplicas, backend dedicado, ETL, geoespacial) sin reescribir la app.
+- **Seguridad de nivel empresarial:** TLS/WAF, cifrado en reposo y tránsito,
+  gestión de secretos y autenticación estándar (OIDC/OAuth 2.0).
+```
