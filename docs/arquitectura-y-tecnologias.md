@@ -326,7 +326,78 @@ Drizzle) se agregan **migraciones versionadas** y tipado extremo a extremo.
 
 ---
 
-## 6. Por qué este stack es una buena decisión (síntesis para la propuesta)
+## 6. Arquitectura segura (seguridad por diseño)
+
+La seguridad es un requisito de primer orden y la arquitectura la aborda en capas
+(*defense in depth*), con controles estándar de la industria en cada nivel:
+
+- **Perímetro / borde:**
+  - **TLS/HTTPS** obligatorio en todo el tráfico; certificados gestionados.
+  - **WAF** (Web Application Firewall) y **protección anti-DDoS** en el borde
+    (AWS WAF+Shield / Google Cloud Armor / Azure WAF+DDoS Protection).
+  - **CDN** que absorbe y filtra tráfico antes de llegar al origen.
+- **Aplicación:**
+  - **Validación y saneamiento de entradas** en cada endpoint (tipos, campos
+    requeridos, RUT con dígito verificador), reduciendo inyección y datos
+    inválidos.
+  - Consultas parametrizadas vía **ORM (Prisma/Drizzle)** → mitiga **inyección
+    SQL** por diseño.
+  - **React/Next.js** escapan el contenido por defecto → mitiga **XSS**.
+  - **Rate limiting** y protección de formularios (throttling / CAPTCHA opcional)
+    contra abuso y bots.
+  - Cabeceras de seguridad (CSP, HSTS, X-Content-Type-Options, etc.).
+- **Identidad y acceso:**
+  - Panel administrativo protegido; en producción se recomienda **OIDC/OAuth 2.0**
+    con el proveedor corporativo (AWS Cognito / Google Identity Platform / Azure
+    Entra ID) y **MFA**.
+  - **Principio de menor privilegio** con **IAM** por rol para los servicios.
+- **Datos:**
+  - **Cifrado en reposo** (base de datos y almacenamiento de objetos) y **en
+    tránsito** (TLS extremo a extremo).
+  - **Gestión de secretos** en un *secret manager* (AWS Secrets Manager / Google
+    Secret Manager / Azure Key Vault) — nunca credenciales en el código.
+  - **Base de datos en subred privada**, sin exposición pública directa.
+  - **Backups automáticos** y punto-de-recuperación (PITR) para continuidad.
+- **Operación y cumplimiento:**
+  - **Aislamiento por ambiente** (dev/staging/producción) vía Terraform.
+  - **Registros de auditoría** y trazabilidad de acciones administrativas.
+  - **Monitoreo y alertamiento** de seguridad (accesos anómalos, errores).
+  - Análisis de dependencias (SCA) y estático (SAST) integrables en el CI.
+  - Nubes con certificaciones (ISO 27001, SOC 2, etc.) que apoyan el cumplimiento.
+
+## 7. Alta concurrencia, escalabilidad y disponibilidad
+
+La arquitectura está pensada para **soportar un alto número de usuarios
+concurrentes** de forma elástica:
+
+- **Escalado horizontal automático:** el cómputo (contenedores/serverless) agrega o
+  reduce instancias según la carga (**auto-scaling**), sin intervención manual;
+  serverless puede escalar prácticamente a demanda.
+- **Balanceo de carga:** un *load balancer* distribuye el tráfico entre instancias
+  para evitar cuellos de botella.
+- **Contenido cacheado en CDN:** las páginas y recursos estáticos (gran parte del
+  sitio, al ser mayormente de consulta pública) se sirven desde la **CDN global**,
+  descargando al origen y respondiendo cerca del usuario. Esto permite atender
+  picos masivos de lectura (por ejemplo, ante una noticia o instancia de
+  participación) con latencia baja.
+- **Renderizado eficiente:** los **React Server Components** y la generación
+  estática reducen el trabajo por solicitud.
+- **Base de datos escalable:** PostgreSQL gestionado con **réplicas de lectura**
+  para distribuir consultas, **pooling de conexiones** y opción de motores de alto
+  rendimiento (Aurora/AlloyDB) para grandes volúmenes; una **caché Redis** puede
+  absorber lecturas calientes.
+- **Almacenamiento de objetos** (S3/GCS/Blob) para PDFs, con capacidad y ancho de
+  banda prácticamente ilimitados vía CDN.
+- **Sin estado en el cómputo (stateless):** las instancias no guardan estado local,
+  por lo que se pueden replicar sin límite; el estado vive en la base de datos y el
+  almacenamiento gestionados.
+- **Alta disponibilidad:** despliegue **multi-zona** (multi-AZ) con conmutación por
+  error de base de datos y redundancia de instancias → tolerancia a fallos.
+- **Verificable:** la suite E2E y la posibilidad de **pruebas de carga** (k6,
+  Artillery) permiten dimensionar y validar la capacidad antes de eventos de alto
+  tráfico.
+
+## 8. Por qué este stack es una buena decisión (síntesis para la propuesta)
 
 - **Tecnologías de punta y vigentes:** Next.js 16, React 19, TypeScript 6 y
   Tailwind 4 son las versiones más recientes y ampliamente adoptadas de un
@@ -341,6 +412,12 @@ Drizzle) se agregan **migraciones versionadas** y tipado extremo a extremo.
   contrato, E2E y accesibilidad) en integración continua.
 - **Escalable y evolutiva:** monorepo y separación de contratos de datos permiten
   crecer (réplicas, backend dedicado, ETL, geoespacial) sin reescribir la app.
-- **Seguridad de nivel empresarial:** TLS/WAF, cifrado en reposo y tránsito,
-  gestión de secretos y autenticación estándar (OIDC/OAuth 2.0).
+- **Seguridad por diseño (defense in depth):** TLS/WAF + anti-DDoS en el borde,
+  cifrado en reposo y tránsito, base de datos en red privada, gestión de secretos,
+  autenticación estándar (OIDC/OAuth 2.0 + MFA), auditoría y nubes certificadas
+  (ISO 27001 / SOC 2). La protección de datos es prioridad de la arquitectura.
+- **Alta concurrencia y disponibilidad:** escalado horizontal automático, balanceo
+  de carga, CDN global para picos masivos de lectura, cómputo *stateless*, réplicas
+  de base de datos y despliegue multi-zona → soporta muchos usuarios simultáneos y
+  tolera fallos.
 ```
